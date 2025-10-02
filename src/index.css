@@ -1,0 +1,186 @@
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "tailwindcss";
+
+body {
+  font-family: "Inter", sans-serif;
+  overflow: hidden;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+.font-bangers {
+  font-family: "Bangers", cursive;
+}
+.game-screen {
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+.food-item {
+  transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+}
+.food-item:active,
+.assembly-item:active {
+  transform: scale(0.9);
+}
+.order-ticket {
+  animation: slide-in 0.5s ease-out forwards;
+  cursor: pointer;
+  border: 6px solid transparent;
+  transition: border-color 0.3s ease, transform 0.2s ease;
+}
+.order-ticket:hover {
+  transform: translateY(-5px);
+}
+.order-ticket.selected {
+  border-color: #f59e0b; /* amber-500 */
+  box-shadow: 0 0 20px #f59e0b;
+}
+.order-ticket.challenge-order {
+  background-color: #fef9c3; /* yellow-50 */
+  border-color: #facc15; /* yellow-400 */
+}
+.order-ticket-out {
+  animation: slide-out 0.5s ease-in forwards;
+}
+.order-expired {
+  animation: expire-fade 0.5s ease-in forwards;
+}
+@keyframes slide-in {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+@keyframes slide-out {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(1.2);
+    opacity: 0;
+  }
+}
+@keyframes expire-fade {
+  from {
+    transform: scale(1);
+    opacity: 1;
+    filter: grayscale(0);
+  }
+  to {
+    transform: scale(0.8);
+    opacity: 0;
+    filter: grayscale(1);
+  }
+}
+.feedback {
+  animation: fade-out 1s forwards;
+}
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50px) scale(1.5);
+  }
+}
+.timer-bar-inner {
+  transition: width 1s linear;
+}
+.order-timer-bar {
+  height: 8px;
+  background-color: #4ade80; /* green-400 */
+  transition: width 0.1s linear, background-color 0.5s linear;
+  border-radius: 0 0 4px 4px;
+}
+.assembly-item {
+  cursor: pointer;
+}
+.shake {
+  animation: shake 0.5s;
+}
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-10px);
+  }
+  75% {
+    transform: translateX(10px);
+  }
+}
+.customer-feedback-bubble {
+  animation: bubble-in-out 4s ease-in-out forwards;
+}
+@keyframes bubble-in-out {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.5) translateY(20px);
+  }
+  10%,
+  90% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+.food-image {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.food-emoji {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem; /* For emoji fallback */
+  font-family: "Noto Color Emoji", "Inter", sans-serif;
+}
+.disabled-btn {
+  cursor: not-allowed;
+  filter: grayscale(1);
+  opacity: 0.5;
+}
+#game-headline-display {
+  transition: opacity 0.5s ease-in-out;
+}
+.attract-bubble {
+  position: absolute;
+  padding: 1rem 2rem;
+  border-radius: 9999px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3);
+  /* Animation is now set dynamically in JS */
+}
+@keyframes attract-float {
+  0%,
+  100% {
+    opacity: 0;
+    transform: scale(0.8) translate(0, 20px);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1) translate(-15px, 0);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1) translate(15px, -10px);
+  }
+}
+#demo-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 100;
+  cursor: pointer;
+}
