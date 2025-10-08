@@ -1,66 +1,48 @@
-import { useState } from "react";
-import { AssemblyLine } from "../components/AssemblyLine";
+import { useEffect } from "react";
+import { FoodTray } from "../components/FoodTray";
 import { FoodButton } from "../components/FoodButton";
-import { OrderCard, type OrderType } from "../components/OrderCard";
+import { OrderCard } from "../components/OrderCard";
 import { getAllFoods } from "../utils/Foods";
+import { useGameContext } from "../providers/GameStateProvider";
 
 type GameScreenProps = {
-  currentTime: number;
   timeBarPercentage: number;
 };
 
-export const GameScreen = ({ currentTime, timeBarPercentage }: GameScreenProps) => {
-  const currentDate = Date.now();
-  const [orders, setOrders] = useState<[OrderType]>([
-    {
-      id: "t1",
-      items: ["burger", "pizza"],
-      createdAt: currentDate,
-      shelfLife: 50,
-      value: 25,
-      isExpiring: false,
-      isChallenge: false,
-      name: "test",
-    },
-  ]);
-  const [assmeblyItems, setAssemblyItems] = useState<string[]>([]);
-  const [selectedOrder, setSelectedOrder] = useState<OrderType | null>(null);
-
-  const addToAssmembly = (food: string) => {
-    setAssemblyItems((assembly) => [...assembly, food]);
-  };
-
-  const removeFromAssembly = (idx: number) => {
-    setAssemblyItems((assembly) => assembly.filter((_, i) => i !== idx));
-  };
-
-  const clearAssemblyLine = () => {
-    setAssemblyItems([]);
-  };
-
-  const submitAssemblyLine = () => {
-    clearAssemblyLine();
-    //TODO: Submit logic here
-  };
-
+export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
+  const { state, dispatch } = useGameContext();
   const foods = getAllFoods();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch({ type: "DECREASE_ORDER_TIME" });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [dispatch]);
 
   const TopBar = () => {
     return (
       <>
         <div className="bg-slate-800 text-white p-4 flex justify-between items-center shadow-lg z-10">
           <div className="text-2xl md:text-4xl font-bold">
-            Score: <span id="score">0</span>
+            Score: <span id="score">{state.currentScore}</span>
           </div>
           <div id="game-name-ingame-display" className="text-4xl md:text-6xl font-bangers text-yellow-300">
             Cafeteria Chaos
           </div>
           <div className="text-2xl md:text-4xl font-bold">
-            Time: <span id="time">{currentTime}</span>
+            Time: <span id="time">{state.timeRemaining}</span>
           </div>
         </div>
         <div className="w-full h-4 bg-gray-300">
-          <div id="timer-bar" className={`h-full bg-green-500 timer-bar-inner w-[${timeBarPercentage}%]`}></div>
+          <div
+            id="timer-bar"
+            style={{
+              width: `${timeBarPercentage}%`,
+            }}
+            className={"h-full bg-green-500 timer-bar-inner"}
+          ></div>
         </div>
       </>
     );
@@ -77,8 +59,8 @@ export const GameScreen = ({ currentTime, timeBarPercentage }: GameScreenProps) 
         id="order-area"
         className="flex-grow w-full p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 overflow-y-auto"
       >
-        {orders.map((order) => (
-          <OrderCard order={order} setSelectedOrder={setSelectedOrder} />
+        {state.orders.map((order) => (
+          <OrderCard order={order} />
         ))}
         {/* <!-- Order tickets will be injected here --> */}
       </div>
@@ -95,12 +77,7 @@ export const GameScreen = ({ currentTime, timeBarPercentage }: GameScreenProps) 
 
       {/* <!-- Current Assembly Area --> */}
 
-      <AssemblyLine
-        items={assmeblyItems}
-        removeFromAssembly={removeFromAssembly}
-        clearAssemblyLine={clearAssemblyLine}
-        submitAssemblyLine={submitAssemblyLine}
-      />
+      <FoodTray />
 
       {/* <!-- Food Selection Area --> */}
 
@@ -109,7 +86,7 @@ export const GameScreen = ({ currentTime, timeBarPercentage }: GameScreenProps) 
         className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-4 p-4 bg-slate-700 border-t-8 border-slate-900"
       >
         {foods.map((food) => (
-          <FoodButton food={food} addToAssembly={addToAssmembly} />
+          <FoodButton food={food} />
         ))}
       </div>
     </div>

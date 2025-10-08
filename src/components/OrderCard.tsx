@@ -1,28 +1,20 @@
-import type { Dispatch, SetStateAction } from "react";
-import { getFoodEmoji, type availableFoods } from "../utils/Foods";
+import { getFoodEmoji } from "../utils/Foods";
 import "../index.css";
-
-export type OrderType = {
-  id: string;
-  items: Array<availableFoods>;
-  createdAt: number;
-  shelfLife: number;
-  value: number;
-  isExpiring: boolean;
-  isChallenge: boolean;
-  name: string;
-};
+import type { OrderType } from "../providers/types";
+import { useGameContext } from "../providers/GameStateProvider";
 
 type OrderCardProps = {
   order: OrderType;
-  setSelectedOrder: Dispatch<SetStateAction<OrderType | null>>;
 };
 
-export const OrderCard = ({ order, setSelectedOrder }: OrderCardProps) => {
+export const OrderCard = ({ order }: OrderCardProps) => {
+  const { dispatch } = useGameContext();
+  const timeBarPercentage = (order.timeRemaining / order.shelfLife) * 100;
+
   return (
     <div
       className="order-ticket p-2 rounded-lg shadow-lg flex flex-col bg-[#fffbe8]"
-      onClick={() => setSelectedOrder(order)}
+      onClick={() => dispatch({ type: "SELECT_ORDER", payload: order })}
     >
       <div className="flex-grow flex justify-center items-center gap-2 flex-wrap">
         {order.items.map((item) => {
@@ -35,8 +27,16 @@ export const OrderCard = ({ order, setSelectedOrder }: OrderCardProps) => {
           );
         })}
       </div>
-
-      <div className="text-center font-bold text-green-700 text-2xl -mt-1">{order.value}</div>
+      <div className="text-center font-bold text-green-700 text-2xl -mt-1">{order.value}</div>{" "}
+      <div className="w-full h-4 bg-gray-300">
+        <div
+          id="timer-bar"
+          style={{
+            width: `${timeBarPercentage}%`,
+          }}
+          className={"h-full bg-green-500 timer-bar-inner"}
+        ></div>
+      </div>
     </div>
   );
 };

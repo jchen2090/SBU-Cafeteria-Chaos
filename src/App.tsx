@@ -1,43 +1,37 @@
 import "./index.css";
 import { StartScreen } from "./Screens/StartScreen";
 import { GameScreen } from "./Screens/GameScreen";
-import { useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import { GameOverScreen } from "./Screens/GameOverScreen";
+import { useGameContext } from "./providers/GameStateProvider";
 
 function App() {
-  const GAME_DURATION = 60;
+  const { state, dispatch } = useGameContext();
 
-  const [gameStarted, setGameStarted] = useState(false);
-  const [currentTime, setCurrentTime] = useState(GAME_DURATION);
-
-  const timeLeft = useRef(GAME_DURATION);
-  const timeBarPercentage = (currentTime / GAME_DURATION) * 100;
+  const timeBarPercentage = (state.timeRemaining / state.GAME_DURATION) * 100;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentTime((currentTime) => {
-        if (currentTime <= 1) {
-          clearInterval(interval);
-          setCurrentTime(60);
-          setGameStarted(false);
-          return 0;
-        }
-        timeLeft.current = currentTime - 1;
-        return currentTime - 1;
-      });
+      dispatch({ type: "DECREASE_TIME" });
+
+      if (state.timeRemaining <= 1) {
+        clearInterval(interval);
+        dispatch({ type: "RESET_TIME" });
+        dispatch({ type: "STOP_GAME" });
+      }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [dispatch, state.timeRemaining]);
 
   let loadedComponent;
 
-  if (currentTime == 0) {
+  if (state.timeRemaining === 0) {
     loadedComponent = <GameOverScreen />;
-  } else if (gameStarted) {
-    loadedComponent = <GameScreen currentTime={currentTime} timeBarPercentage={timeBarPercentage} />;
+  } else if (state.gameHasStarted) {
+    loadedComponent = <GameScreen timeBarPercentage={timeBarPercentage} />;
   } else {
-    loadedComponent = <StartScreen setGameStarted={setGameStarted} />;
+    loadedComponent = <StartScreen />;
   }
 
   return (

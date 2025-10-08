@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bangers&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Color+Emoji&display=swap");
 @import "tailwindcss";
 
 body {
@@ -33,6 +33,7 @@ body {
   box-shadow: 0 0 20px #f59e0b;
 }
 .order-ticket.challenge-order {
+  transition: width 0.1s linear, background-color 0.5s linear;
   background-color: #fef9c3; /* yellow-50 */
   border-color: #facc15; /* yellow-400 */
 }

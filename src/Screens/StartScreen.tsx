@@ -1,12 +1,10 @@
-import type { Dispatch, SetStateAction } from "react";
+import { useGameContext } from "../providers/GameStateProvider";
 
-type StartScreenProps = {
-  setGameStarted: Dispatch<SetStateAction<boolean>>;
-};
+export const StartScreen = () => {
+  const { dispatch } = useGameContext();
 
-export const StartScreen = ({ setGameStarted }: StartScreenProps) => {
   const startGame = () => {
-    setGameStarted(true);
+    dispatch({ type: "START_GAME" });
   };
 
   return (
