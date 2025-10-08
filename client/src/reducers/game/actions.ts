@@ -1,4 +1,5 @@
-import type { OrderType } from "../../providers/types";
+import type { OrderType, SavedGameType } from "../../providers/types";
+import type { availableFoods } from "../../utils/Foods";
 
 export type GlobalActions =
   | { type: "ADD_ORDER"; payload: OrderType }
@@ -9,8 +10,9 @@ export type GlobalActions =
   | { type: "DECREASE_TIME" }
   | { type: "RESET_TIME" }
   | { type: "CLEAR_TRAY" }
-  | { type: "ADD_TO_TRAY"; payload: string }
+  | { type: "ADD_TO_TRAY"; payload: availableFoods }
   | { type: "SUBMIT_TRAY" }
   | { type: "REMOVE_FROM_TRAY"; payload: { food_idx: number } }
   | { type: "SELECT_ORDER"; payload: OrderType }
-  | { type: "DECREASE_ORDER_TIME" };
+  | { type: "DECREASE_ORDER_TIME" }
+  | { type: "SET_HISTORICAL_DATA"; payload: { scores: Array<SavedGameType>; gamesPlayed: number } };

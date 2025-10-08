@@ -1,10 +1,11 @@
 /* eslint-disable react-refresh/only-export-components */
-import { createContext, useContext, useMemo, useReducer, type Dispatch, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useMemo, useReducer, type Dispatch, type ReactNode } from "react";
 import type { GameStateType } from "./types";
 import type { GlobalActions } from "../reducers/game/actions";
 import { gameReducer } from "../reducers/game/gameReducer";
+import { getHistoricalData } from "../utils/Scores";
 
-const initialState: GameStateType = {
+export const initialState: GameStateType = {
   orders: [
     {
       id: "t1",
@@ -22,6 +23,8 @@ const initialState: GameStateType = {
   trayItems: [],
   selectedOrder: null,
   currentScore: 0,
+  highScores: [],
+  gamesPlayed: 0,
 };
 
 interface contextType {
@@ -32,6 +35,19 @@ export const GlobalStateContext = createContext<contextType | null>(null);
 
 export function GameStateProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(gameReducer, initialState);
+
+  useEffect(() => {
+    const loadHistoricalData = async () => {
+      try {
+        const res = await getHistoricalData();
+        dispatch({ type: "SET_HISTORICAL_DATA", payload: { scores: res.highScores, gamesPlayed: res.gamesPlayed } });
+      } catch (err) {
+        console.error("Failed to load initial state:", err);
+      }
+    };
+
+    loadHistoricalData();
+  }, []);
 
   const contextValue = useMemo(() => {
     return { state, dispatch };

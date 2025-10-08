@@ -8,12 +8,15 @@ type OrderCardProps = {
 };
 
 export const OrderCard = ({ order }: OrderCardProps) => {
-  const { dispatch } = useGameContext();
+  const { state, dispatch } = useGameContext();
+  const { selectedOrder } = state;
   const timeBarPercentage = (order.timeRemaining / order.shelfLife) * 100;
 
   return (
     <div
-      className="order-ticket p-2 rounded-lg shadow-lg flex flex-col bg-[#fffbe8]"
+      className={`order-ticket p-2 rounded-lg shadow-lg flex flex-col bg-[#fffbe8] ${
+        selectedOrder?.id === order.id ? "selected" : ""
+      }`}
       onClick={() => dispatch({ type: "SELECT_ORDER", payload: order })}
     >
       <div className="flex-grow flex justify-center items-center gap-2 flex-wrap">

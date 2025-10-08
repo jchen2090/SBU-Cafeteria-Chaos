@@ -1,7 +1,7 @@
 import { useGameContext } from "../providers/GameStateProvider";
 
 export const StartScreen = () => {
-  const { dispatch } = useGameContext();
+  const { state, dispatch } = useGameContext();
 
   const startGame = () => {
     dispatch({ type: "START_GAME" });
@@ -19,7 +19,7 @@ export const StartScreen = () => {
           className="absolute top-4 left-4 text-white text-2xl font-bold p-3 rounded-lg text-left"
         >
           <div>
-            Games Played: <span id="games-played-display">0</span>
+            Games Played: <span id="games-played-display">{state.gamesPlayed}</span>
           </div>
         </div>
         <div
@@ -27,7 +27,8 @@ export const StartScreen = () => {
           className="absolute top-4 right-4 text-white text-2xl font-bold p-3 rounded-lg text-right"
         >
           <div>
-            High Score: <span id="top-score-display">0</span>
+            High Score:{" "}
+            <span id="top-score-display">{state.highScores.length > 0 ? state.highScores[0].score : 0}</span>
           </div>
         </div>
         <h1

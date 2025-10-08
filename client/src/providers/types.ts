@@ -15,7 +15,19 @@ export type GameStateType = {
   timeRemaining: number;
   gameHasStarted: boolean;
   GAME_DURATION: number;
-  trayItems: Array<string>;
+  trayItems: Array<availableFoods>;
   selectedOrder: OrderType | null;
   currentScore: number;
+  highScores: Array<SavedGameType>;
+  gamesPlayed: number;
+};
+
+export type SavedGameType = {
+  iniitals: string;
+  score: number;
+};
+
+export type HistoricalDataType = {
+  highScores: Array<SavedGameType>;
+  gamesPlayed: number;
 };

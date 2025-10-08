@@ -1,11 +1,12 @@
 import { useGameContext } from "../providers/GameStateProvider";
+import { getFoodEmoji } from "../utils/Foods";
 import { FoodTrayItem } from "./FoodTrayItem";
 
 export const FoodTray = () => {
   const { state, dispatch } = useGameContext();
   const ItemsLinedUp = () => {
     return state.trayItems.map((item, idx) => {
-      return <FoodTrayItem emoji={item} idx={idx} key={idx} />;
+      return <FoodTrayItem emoji={getFoodEmoji(item)} idx={idx} key={idx} />;
     });
   };
 

@@ -2,14 +2,16 @@
 
 - [ ] Demo
 - [x] Timer bar change
-  - [ ] Fix animation for this 
+  - [ ] Fix animation for this
 - [x] Order timer bar change
 - [x] Orders
+  - [ ] Fix fade out animation (low priority)
+  - [ ] Show negative and positive customer feedback based on correct or wrong orders
   - [ ] Generate random orders
-  - [ ] Submit orders
-- [ ] Points
-- [ ] High scores
-  - [ ] Server setup
+  - [x] Submit orders
+- [x] Points
+- [x] High scores
+  - [x] Server setup
 - [ ] Special Orders
 - [ ] Random popup ads
 - [ ] ADA requirements

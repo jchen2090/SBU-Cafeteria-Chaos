@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "express": "^5.1.0"
+  },
+  "type": "module",
+  "scripts": {
+    "dev": "cd src; node index.ts"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.7.0"
+  }
+}
