@@ -11,8 +11,9 @@
   - [x] Submit orders
 - [x] Points
 - [x] High scores
+  - [x] leaderboard
   - [x] Server setup
 - [ ] Special Orders
 - [ ] Random popup ads
 - [ ] ADA requirements
-- [ ] Start script
+- [x] Start script

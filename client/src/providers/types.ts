@@ -23,7 +23,7 @@ export type GameStateType = {
 };
 
 export type SavedGameType = {
-  iniitals: string;
+  initials: string;
   score: number;
 };
 

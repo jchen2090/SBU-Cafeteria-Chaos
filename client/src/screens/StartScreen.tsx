@@ -1,7 +1,10 @@
+import { useState } from "react";
+import { HighScoreModal } from "../components/HighScoreModal";
 import { useGameContext } from "../providers/GameStateProvider";
 
 export const StartScreen = () => {
   const { state, dispatch } = useGameContext();
+  const [open, setIsOpen] = useState(false);
 
   const startGame = () => {
     dispatch({ type: "START_GAME" });
@@ -55,7 +58,8 @@ export const StartScreen = () => {
           <div className="flex gap-4 justify-center mt-6">
             <button
               id="high-scores-btn"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700 cursor-pointer"
+              onClick={() => setIsOpen(true)}
             >
               High Scores
             </button>
@@ -68,6 +72,7 @@ export const StartScreen = () => {
           </div>
         </div>
       </div>
+      <HighScoreModal open={open} scores={state.highScores} onOpenChange={setIsOpen} />
     </div>
   );
 };

@@ -1,43 +1,45 @@
-export const HighScoreModal = () => {
+import * as Dialog from "@radix-ui/react-dialog";
+import type { SavedGameType } from "../providers/types";
+import type { Dispatch, SetStateAction } from "react";
+
+interface HighScoreModalProps {
+  open: boolean;
+  scores: Array<SavedGameType>;
+  onOpenChange: Dispatch<SetStateAction<boolean>>;
+}
+
+export const HighScoreModal = ({ open, onOpenChange, scores }: HighScoreModalProps) => {
   return (
-    <div
-      id="modal-container"
-      className="absolute inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 p-8"
-    >
-      {/* <!-- High Score Modal --> */}
-      <div
-        id="highscore-modal-content"
-        className="modal-content bg-slate-700 text-white p-8 rounded-2xl shadow-lg w-full max-w-2xl border-4 border-yellow-400 hidden"
-      >
-        <h2 className="font-bangers text-7xl text-yellow-400 text-center mb-6">Hall of Fame</h2>
-        <ol id="highscore-list" className="list-decimal list-inside text-3xl space-y-3">
-          {/* <!-- High scores will be populated here --> */}
-        </ol>
-        <button className="close-modal-btn mt-8 bg-red-500 hover:bg-red-600 w-full text-white font-bold text-2xl py-3 px-8 rounded-full">
-          Close
-        </button>
-      </div>
-      {/* <!-- Daily Special Modal --> */}
-      <div
-        id="special-challenge-modal-content"
-        className="modal-content bg-slate-700 text-white p-8 rounded-2xl shadow-lg w-full max-w-2xl border-4 border-yellow-400 hidden"
-      >
-        <h2 className="font-bangers text-7xl text-yellow-400 text-center mb-6">✨ Daily Special</h2>
-        <div id="special-challenge-details" className="text-2xl text-center">
-          {/* <!-- Challenge details will be loaded here --> */}
-        </div>
-        <div className="flex gap-4 mt-8">
-          <button
-            id="start-challenge-btn"
-            className="flex-1 bg-green-500 hover:bg-green-600 text-white font-bold text-3xl py-4 rounded-full"
-          >
-            Start Challenge!
-          </button>
-          <button className="close-modal-btn flex-1 bg-red-500 hover:bg-red-600 text-white font-bold text-3xl py-4 rounded-full">
-            Cancel
-          </button>
-        </div>
-      </div>
-    </div>
+    <Dialog.Root open={open} onOpenChange={onOpenChange}>
+      <Dialog.Portal>
+        <Dialog.Overlay id="modal-container" className="fixed inset-0 bg-black bg-opacity-50 z-50" />
+        <Dialog.Content
+          id="highscore-modal-content"
+          className="modal-content fixed left-1/2 top-1/2 z-50 w-full max-w-2xl -translate-x-1/2 -translate-y-1/2 bg-slate-700 text-white p-8 rounded-2xl shadow-lg border-4 border-yellow-400 focus:outline-none"
+        >
+          <Dialog.Title className="font-bangers text-7xl text-yellow-400 text-center mb-6">Hall of Fame</Dialog.Title>
+
+          <ol id="highscore-list" className="list-decimal list-inside text-3xl space-y-3">
+            {scores.length === 0 ? (
+              <li className="text-center text-2xl text-slate-300">No high scores recorded yet.</li>
+            ) : (
+              scores.map((entry: SavedGameType, index) => (
+                <li key={`${entry.initials}-${entry.score}-${index}`}>
+                  <span className="font-semibold">{entry.initials || "---"}</span> — {entry.score} pts
+                </li>
+              ))
+            )}
+          </ol>
+
+          <div className="mt-8 space-y-4">
+            <Dialog.Close asChild>
+              <button className="close-modal-btn bg-red-500 hover:bg-red-600 w-full text-white font-bold text-2xl py-3 px-8 rounded-full">
+                Close
+              </button>
+            </Dialog.Close>
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 };
