@@ -7,14 +7,12 @@ export type OrderType = {
   shelfLife: number;
   value: number;
   isChallenge: boolean;
-  name: string;
 };
 
 export type GameStateType = {
   orders: Array<OrderType>;
   timeRemaining: number;
   gameHasStarted: boolean;
-  GAME_DURATION: number;
   trayItems: Array<availableFoods>;
   selectedOrder: OrderType | null;
   currentScore: number;

@@ -5,6 +5,13 @@ import type { GlobalActions } from "../reducers/game/actions";
 import { gameReducer } from "../reducers/game/gameReducer";
 import { getHistoricalData } from "../utils/Scores";
 
+export const GAME_CONFIG = {
+  GAME_DURATION: 60,
+  ORDER_SHELF_LIFE: 20,
+  DIFFICULTY: 1,
+  MAX_ORDERS: 4,
+};
+
 export const initialState: GameStateType = {
   orders: [
     {
@@ -14,12 +21,10 @@ export const initialState: GameStateType = {
       shelfLife: 20,
       value: 25,
       isChallenge: false,
-      name: "test",
     },
   ],
   timeRemaining: 10,
   gameHasStarted: false,
-  GAME_DURATION: 60,
   trayItems: [],
   selectedOrder: null,
   currentScore: 0,

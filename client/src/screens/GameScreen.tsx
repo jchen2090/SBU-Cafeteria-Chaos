@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { FoodTray } from "../components/FoodTray";
 import { FoodButton } from "../components/FoodButton";
 import { OrderCard } from "../components/OrderCard";
-import { getAllFoods } from "../utils/Foods";
-import { useGameContext } from "../providers/GameStateProvider";
+import { generateRandomOrder, getAllFoods } from "../utils/Foods";
+import { GAME_CONFIG, useGameContext } from "../providers/GameStateProvider";
 
 type GameScreenProps = {
   timeBarPercentage: number;
@@ -16,10 +16,24 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
   useEffect(() => {
     const interval = setInterval(() => {
       dispatch({ type: "DECREASE_ORDER_TIME" });
+
+      // Do not create more orders
+      if (state.orders.length === GAME_CONFIG.MAX_ORDERS) {
+        return;
+      }
+
+      // If no orders, immediately genereate one
+      if (state.orders.length === 0) {
+        dispatch({ type: "ADD_ORDER", payload: generateRandomOrder() });
+      }
+      const rng = Math.min(0.25 + (GAME_CONFIG.DIFFICULTY - 1) * 0.15, 1);
+      if (Math.random() < rng) {
+        dispatch({ type: "ADD_ORDER", payload: generateRandomOrder() });
+      }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [dispatch]);
+  }, [dispatch, state.orders.length]);
 
   const TopBar = () => {
     return (

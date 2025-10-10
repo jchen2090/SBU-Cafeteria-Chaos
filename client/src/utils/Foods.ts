@@ -1,3 +1,6 @@
+import { GAME_CONFIG } from "../providers/GameStateProvider";
+import type { OrderType } from "../providers/types";
+
 const FOOD_ITEMS = {
   burger: { imagePath: "images/burger.png", emoji: "🍔" },
   pizza: { imagePath: "images/pizza.png", emoji: "🍕" },
@@ -22,4 +25,37 @@ export const getFoodEmoji = (food: availableFoods) => {
 
 export const getAllFoods = () => {
   return Object.keys(FOOD_ITEMS) as availableFoods[];
+};
+
+const generateRandomFoodOrder = () => {
+  const randomQty = Math.floor(Math.random() * 4 + 1);
+  const items = [];
+  const availableFoods = getAllFoods();
+
+  for (let i = 0; i < randomQty; i++) {
+    const randomIdx = Math.floor(Math.random() * availableFoods.length);
+    const foodToAdd = availableFoods[randomIdx];
+    items.push(foodToAdd);
+  }
+  return items as availableFoods[];
+};
+
+export const generateRandomOrder = () => {
+  const id = `order-${Date.now()}`;
+  const items = generateRandomFoodOrder();
+  const timeRemaining = GAME_CONFIG.ORDER_SHELF_LIFE;
+  const shelfLife = GAME_CONFIG.ORDER_SHELF_LIFE;
+  const value = items.length * 25;
+  const isChallenge = false;
+
+  const order: OrderType = {
+    id,
+    items,
+    timeRemaining,
+    shelfLife,
+    value,
+    isChallenge,
+  };
+
+  return order;
 };

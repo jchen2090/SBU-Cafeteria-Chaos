@@ -7,7 +7,8 @@
 - [x] Orders
   - [ ] Fix fade out animation (low priority)
   - [ ] Show negative and positive customer feedback based on correct or wrong orders
-  - [ ] Generate random orders
+  - [x] Generate random orders
+    - [x] Difficulty slider 
   - [x] Submit orders
 - [x] Points
 - [x] High scores

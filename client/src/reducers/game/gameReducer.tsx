@@ -1,4 +1,4 @@
-import { initialState } from "../../providers/GameStateProvider";
+import { GAME_CONFIG, initialState } from "../../providers/GameStateProvider";
 import type { GameStateType } from "../../providers/types";
 import type { GlobalActions } from "./actions";
 
@@ -21,7 +21,7 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
     case "DECREASE_TIME":
       return { ...state, timeRemaining: Math.max(0, state.timeRemaining - 1) };
     case "RESET_TIME":
-      return { ...state, timeRemaining: state.GAME_DURATION };
+      return { ...state, timeRemaining: GAME_CONFIG.GAME_DURATION };
     case "SUBMIT_TRAY": {
       const selectedOrder = state.selectedOrder;
       const trayItems = state.trayItems;
@@ -35,8 +35,6 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
         return { ...state, trayItems: [] };
       }
 
-      console.log(selectedOrder);
-      console.log(trayItems);
       // Check to make sure all items are in
       const fulfillsOrder = selectedOrder?.items.every((item) => trayItems.includes(item));
 
