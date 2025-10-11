@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { FoodTray } from "../components/FoodTray";
 import { FoodButton } from "../components/FoodButton";
 import { OrderCard } from "../components/OrderCard";
-import { generateRandomOrder, getAllFoods } from "../utils/Foods";
+import { generateRandomOrder, getAllFoods, getRandomNegativeMessage, getRandomPositiveMessage } from "../utils/Foods";
 import { GAME_CONFIG, useGameContext } from "../providers/GameStateProvider";
+import { Flip, toast, ToastContainer, Zoom } from "react-toastify";
+import "../index.css";
 
 type GameScreenProps = {
   timeBarPercentage: number;
@@ -12,6 +14,42 @@ type GameScreenProps = {
 export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
   const { state, dispatch } = useGameContext();
   const foods = getAllFoods();
+
+  useEffect(() => {
+    state.clearedOrders.forEach((order) => {
+      if (order.hasDisplayedToast) {
+        return;
+      }
+
+      if (order.isCompleted) {
+        const message = getRandomPositiveMessage();
+        toast(`"${message}"`, {
+          closeButton: false,
+          className: "font-bold flex justify-center !bg-green-200/50 !text-green-800 mt-20 !w-3xl",
+        });
+        toast(`+${order.order.value}`, {
+          closeButton: false,
+          position: "top-left",
+          className: "!font-bangers !text-xl font-bold justify-end !bg-transparent !text-green-500 !shadow-none !w-64",
+          transition: Flip,
+        });
+        dispatch({ type: "REMOVE_FROM_CLEARED_ORDERS", payload: order });
+      } else {
+        const message = getRandomNegativeMessage();
+        toast(`"${message}"`, {
+          closeButton: false,
+          className: "font-bold flex justify-center !bg-red-200/50 !text-red-800 mt-20 !w-3xl",
+        });
+        toast(`-${order.order.value}`, {
+          closeButton: false,
+          position: "top-left",
+          className: "!font-bangers !text-xl font-bold justify-end !bg-transparent !text-red-500 !shadow-none !w-64",
+          transition: Flip,
+        });
+        dispatch({ type: "REMOVE_FROM_CLEARED_ORDERS", payload: order });
+      }
+    });
+  }, [dispatch, state.clearedOrders]);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -82,6 +120,21 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
   return (
     <div id="game-screen" className="flex game-screen w-full h-full flex-col relative bg-gray-300">
       {/* <div id="demo-overlay" className="hidden"></div> */}
+      <ToastContainer
+        position="top-center"
+        autoClose={750}
+        limit={2}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable={false}
+        pauseOnHover
+        theme="light"
+        transition={Zoom}
+      />
+
       {/* <!-- Top Bar --> */}
       <TopBar />
 

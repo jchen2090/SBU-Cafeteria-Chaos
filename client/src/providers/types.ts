@@ -10,6 +10,12 @@ export type OrderType = {
   name?: string;
 };
 
+export type clearedOrderType = {
+  order: OrderType;
+  isCompleted: boolean;
+  hasDisplayedToast: boolean;
+};
+
 export type GameStateType = {
   orders: Array<OrderType>;
   timeRemaining: number;
@@ -21,6 +27,7 @@ export type GameStateType = {
   gamesPlayed: number;
   isChallenge: boolean;
   challengeOrder: OrderType | null;
+  clearedOrders: Array<clearedOrderType>;
 };
 
 export type SavedGameType = {

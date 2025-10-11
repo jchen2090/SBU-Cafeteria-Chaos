@@ -1,4 +1,4 @@
-import type { OrderType, SavedGameType } from "../../providers/types";
+import type { clearedOrderType, OrderType, SavedGameType } from "../../providers/types";
 import type { availableFoods } from "../../utils/Foods";
 
 export type GlobalActions =
@@ -18,4 +18,5 @@ export type GlobalActions =
   | { type: "SET_HISTORICAL_DATA"; payload: { scores: Array<SavedGameType>; gamesPlayed: number } }
   | { type: "TOGGLE_CHALLENGE_MODE" }
   | { type: "SET_CHALLENGE_ORDER"; payload: OrderType | null }
-  | { type: "REDUCE_SCORE"; payload: number };
+  | { type: "REDUCE_SCORE"; payload: number }
+  | { type: "REMOVE_FROM_CLEARED_ORDERS"; payload: clearedOrderType };

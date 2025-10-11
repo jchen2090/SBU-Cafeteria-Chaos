@@ -22,6 +22,31 @@ const DAILY_CHALLENGE_NAMES = [
   "Graduation Grub",
 ];
 
+const POSITIVE_FEEDBACK = [
+  "Just what I needed!",
+  "Wolfylicious!",
+  "Delicious!",
+  "Perfect!",
+  "My favorite!",
+  "So fast!",
+  "Amazing service!",
+  "You're a star!",
+  "Yummy!",
+  "Five stars!",
+  "Excellent!",
+];
+
+const NEGATIVE_FEEDBACK = [
+  "Is this what I ordered?",
+  "Hmm, not quite right.",
+  "Where's the rest of it?",
+  "I've been waiting forever!",
+  "This is... creative.",
+  "My order must be lost.",
+  "Did you forget something?",
+  "This wasn't worth the wait.",
+];
+
 export type availableFoods = keyof typeof FOOD_ITEMS;
 
 export const getFoodEmoji = (food: availableFoods) => {
@@ -98,4 +123,14 @@ export const generateSpecialOrder = () => {
     name,
   };
   return order;
+};
+
+export const getRandomPositiveMessage = () => {
+  const idx = Math.floor(Math.random() * POSITIVE_FEEDBACK.length);
+  return POSITIVE_FEEDBACK[idx];
+};
+
+export const getRandomNegativeMessage = () => {
+  const idx = Math.floor(Math.random() * NEGATIVE_FEEDBACK.length);
+  return NEGATIVE_FEEDBACK[idx];
 };

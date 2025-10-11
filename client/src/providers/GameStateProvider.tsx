@@ -32,6 +32,7 @@ export const initialState: GameStateType = {
   gamesPlayed: 0,
   isChallenge: false,
   challengeOrder: null,
+  clearedOrders: [],
 };
 
 interface contextType {

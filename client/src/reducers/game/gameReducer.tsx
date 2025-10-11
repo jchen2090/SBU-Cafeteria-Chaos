@@ -45,6 +45,10 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
           trayItems: [],
           currentScore: state.currentScore + selectedOrder.value,
           orders: state.orders.filter((order) => order.id !== selectedOrder.id),
+          clearedOrders: [
+            ...state.clearedOrders,
+            { order: selectedOrder, isCompleted: true, hasDisplayedToast: false },
+          ],
         };
       } else {
         // Clear tray items, display wrong message
@@ -71,6 +75,10 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
         ...state,
         orders: updatedOrders,
         currentScore: Math.max(state.currentScore - penalty, 0),
+        clearedOrders: [
+          ...state.clearedOrders,
+          ...expiredOrders.map((order) => ({ order: order, isCompleted: false, hasDisplayedToast: false })),
+        ],
       };
     }
     case "SET_HISTORICAL_DATA":
@@ -85,6 +93,12 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
       return { ...state, challengeOrder: action.payload };
     case "REDUCE_SCORE":
       return { ...state, currentScore: (state.currentScore -= action.payload) };
+    case "REMOVE_FROM_CLEARED_ORDERS": {
+      const orderToRemove = action.payload;
+      const updatedOrders = state.clearedOrders.filter((order) => order.order.id !== orderToRemove.order.id);
+
+      return { ...state, clearedOrders: updatedOrders };
+    }
     default:
       throw new Error("Missing case");
   }

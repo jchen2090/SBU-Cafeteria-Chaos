@@ -7,12 +7,12 @@
 - [x] Orders
   - [ ] Fix timer animation
   - [ ] Fix fade out animation (low priority)
-  - [ ] Show negative and positive customer feedback based on correct or wrong orders
-  - [x] Subtract points on order lost 
+  - [x] Show negative and positive customer feedback based on correct or wrong orders
   - [x] Generate random orders
     - [x] Difficulty slider 
   - [x] Submit orders
 - [x] Points
+  - [x] Popup showing differences in points
 - [x] High scores
   - [x] leaderboard
   - [x] Server setup
