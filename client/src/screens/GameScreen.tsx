@@ -17,6 +17,15 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
     const interval = setInterval(() => {
       dispatch({ type: "DECREASE_ORDER_TIME" });
 
+      // Pity, the challenge order needs to show up at least once
+      if (state.isChallenge && state.timeRemaining === 10 && state.challengeOrder) {
+        dispatch({ type: "ADD_ORDER", payload: state.challengeOrder });
+        dispatch({ type: "SET_CHALLENGE_ORDER", payload: null });
+
+        // Return so that special order wont show up twice
+        return;
+      }
+
       // Do not create more orders
       if (state.orders.length === GAME_CONFIG.MAX_ORDERS) {
         return;
@@ -27,13 +36,21 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
         dispatch({ type: "ADD_ORDER", payload: generateRandomOrder() });
       }
       const rng = Math.min(0.25 + (GAME_CONFIG.DIFFICULTY - 1) * 0.15, 1);
+      // Challenge orders always have a 33% to spawn in if a regular order doesn't spawn
+      const specialOrderRng = 0.33;
+
       if (Math.random() < rng) {
         dispatch({ type: "ADD_ORDER", payload: generateRandomOrder() });
+      } else if (Math.random() < specialOrderRng && state.challengeOrder) {
+        dispatch({ type: "ADD_ORDER", payload: state.challengeOrder });
+
+        console.log("Add challenge order");
+        dispatch({ type: "SET_CHALLENGE_ORDER", payload: null });
       }
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [dispatch, state.orders.length]);
+  }, [dispatch, state.challengeOrder, state.isChallenge, state.orders.length, state.timeRemaining]);
 
   const TopBar = () => {
     return (

@@ -40,7 +40,6 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
 
       if (fulfillsOrder) {
         // Clears tray, adds points, removes order
-        console.log("Success!");
         return {
           ...state,
           trayItems: [],
@@ -69,6 +68,10 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
         highScores: action.payload.scores,
         gamesPlayed: action.payload.gamesPlayed,
       };
+    case "TOGGLE_CHALLENGE_MODE":
+      return { ...state, isChallenge: true, gameHasStarted: true };
+    case "SET_CHALLENGE_ORDER":
+      return { ...state, challengeOrder: action.payload };
     default:
       throw new Error("Missing case");
   }

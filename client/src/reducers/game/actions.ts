@@ -15,4 +15,6 @@ export type GlobalActions =
   | { type: "REMOVE_FROM_TRAY"; payload: { food_idx: number } }
   | { type: "SELECT_ORDER"; payload: OrderType }
   | { type: "DECREASE_ORDER_TIME" }
-  | { type: "SET_HISTORICAL_DATA"; payload: { scores: Array<SavedGameType>; gamesPlayed: number } };
+  | { type: "SET_HISTORICAL_DATA"; payload: { scores: Array<SavedGameType>; gamesPlayed: number } }
+  | { type: "TOGGLE_CHALLENGE_MODE" }
+  | { type: "SET_CHALLENGE_ORDER"; payload: OrderType | null };

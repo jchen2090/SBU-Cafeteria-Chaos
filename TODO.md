@@ -14,7 +14,7 @@
 - [x] High scores
   - [x] leaderboard
   - [x] Server setup
-- [ ] Special Orders
+- [x] Special Orders
 - [ ] Random popup ads
 - [ ] ADA requirements
 - [x] Start script

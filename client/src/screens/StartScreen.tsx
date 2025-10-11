@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { HighScoreModal } from "../components/HighScoreModal";
 import { useGameContext } from "../providers/GameStateProvider";
+import { DailySpecialModal } from "../components/DailySpecialModal";
 
 export const StartScreen = () => {
   const { state, dispatch } = useGameContext();
-  const [open, setIsOpen] = useState(false);
+  const [highScoreModal, setHighScoreModal] = useState(false);
+  const [dailySpecialModal, setDailySpecialModal] = useState(false);
 
   const startGame = () => {
     dispatch({ type: "START_GAME" });
@@ -59,20 +61,22 @@ export const StartScreen = () => {
             <button
               id="high-scores-btn"
               className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700 cursor-pointer"
-              onClick={() => setIsOpen(true)}
+              onClick={() => setHighScoreModal(true)}
             >
               High Scores
             </button>
             <button
               id="special-challenge-btn"
-              className="bg-yellow-500 hover:bg-yellow-600 text-slate-800 font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-yellow-300"
+              className="bg-yellow-500 hover:bg-yellow-600 text-slate-800 font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-yellow-300 cursor-pointer"
+              onClick={() => setDailySpecialModal(true)}
             >
               ✨ Daily Special
             </button>
           </div>
         </div>
       </div>
-      <HighScoreModal open={open} scores={state.highScores} onOpenChange={setIsOpen} />
+      <HighScoreModal open={highScoreModal} scores={state.highScores} onOpenChange={setHighScoreModal} />
+      <DailySpecialModal open={dailySpecialModal} onOpenChange={setDailySpecialModal} />
     </div>
   );
 };

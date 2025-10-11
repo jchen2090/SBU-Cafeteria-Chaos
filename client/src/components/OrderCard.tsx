@@ -10,15 +10,17 @@ type OrderCardProps = {
 export const OrderCard = ({ order }: OrderCardProps) => {
   const { state, dispatch } = useGameContext();
   const { selectedOrder } = state;
+  const isChallengeOrder = order.isChallenge;
   const timeBarPercentage = (order.timeRemaining / order.shelfLife) * 100;
 
   return (
     <div
-      className={`order-ticket p-2 rounded-lg shadow-lg flex flex-col bg-[#fffbe8] ${
-        selectedOrder?.id === order.id ? "selected" : ""
-      }`}
+      className={`order-ticket p-2 rounded-lg shadow-lg flex flex-col bg-[#fffbe8] 
+        ${selectedOrder?.id === order.id ? "selected" : ""}
+        ${isChallengeOrder ? "challenge-order" : ""}`}
       onClick={() => dispatch({ type: "SELECT_ORDER", payload: order })}
     >
+      {isChallengeOrder ? <p className="text-center text-bold text-lg">✨ {order?.name} ✨</p> : null}
       <div className="flex-grow flex justify-center items-center gap-2 flex-wrap">
         {order.items.map((item) => {
           const emoji = getFoodEmoji(item);

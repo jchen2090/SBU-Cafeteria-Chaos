@@ -9,7 +9,7 @@ export const GAME_CONFIG = {
   GAME_DURATION: 60,
   ORDER_SHELF_LIFE: 20,
   DIFFICULTY: 1,
-  MAX_ORDERS: 4,
+  MAX_ORDERS: 5,
 };
 
 export const initialState: GameStateType = {
@@ -23,13 +23,15 @@ export const initialState: GameStateType = {
       isChallenge: false,
     },
   ],
-  timeRemaining: 10,
+  timeRemaining: 30,
   gameHasStarted: false,
   trayItems: [],
   selectedOrder: null,
   currentScore: 0,
   highScores: [],
   gamesPlayed: 0,
+  isChallenge: false,
+  challengeOrder: null,
 };
 
 interface contextType {

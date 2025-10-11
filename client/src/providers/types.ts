@@ -7,6 +7,7 @@ export type OrderType = {
   shelfLife: number;
   value: number;
   isChallenge: boolean;
+  name?: string;
 };
 
 export type GameStateType = {
@@ -18,6 +19,8 @@ export type GameStateType = {
   currentScore: number;
   highScores: Array<SavedGameType>;
   gamesPlayed: number;
+  isChallenge: boolean;
+  challengeOrder: OrderType | null;
 };
 
 export type SavedGameType = {

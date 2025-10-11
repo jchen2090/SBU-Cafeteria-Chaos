@@ -13,6 +13,15 @@ const FOOD_ITEMS = {
   sushi: { imagePath: "images/sushi.png", emoji: "🍣" },
 } as const;
 
+const DAILY_CHALLENGE_NAMES = [
+  "The Final Exam Fuel-Up",
+  "Study Hall Snack Attack",
+  "Professor's Pick",
+  "Dean's List Delight",
+  "The All-Nighter",
+  "Graduation Grub",
+];
+
 export type availableFoods = keyof typeof FOOD_ITEMS;
 
 export const getFoodEmoji = (food: availableFoods) => {
@@ -27,8 +36,13 @@ export const getAllFoods = () => {
   return Object.keys(FOOD_ITEMS) as availableFoods[];
 };
 
-const generateRandomFoodOrder = () => {
-  const randomQty = Math.floor(Math.random() * 4 + 1);
+const generateRandomFoodOrder = (isSpeical: boolean) => {
+  let randomQty;
+  if (!isSpeical) {
+    randomQty = Math.floor(Math.random() * 4 + 1);
+  } else {
+    randomQty = 5;
+  }
   const items = [];
   const availableFoods = getAllFoods();
 
@@ -40,9 +54,14 @@ const generateRandomFoodOrder = () => {
   return items as availableFoods[];
 };
 
+const getRandomDailyName = () => {
+  const randomidx = Math.floor(Math.random() * DAILY_CHALLENGE_NAMES.length);
+  return DAILY_CHALLENGE_NAMES[randomidx];
+};
+
 export const generateRandomOrder = () => {
   const id = `order-${Date.now()}`;
-  const items = generateRandomFoodOrder();
+  const items = generateRandomFoodOrder(false);
   const timeRemaining = GAME_CONFIG.ORDER_SHELF_LIFE;
   const shelfLife = GAME_CONFIG.ORDER_SHELF_LIFE;
   const value = items.length * 25;
@@ -57,5 +76,26 @@ export const generateRandomOrder = () => {
     isChallenge,
   };
 
+  return order;
+};
+
+export const generateSpecialOrder = () => {
+  const id = `speical-order`;
+  const name = getRandomDailyName();
+  const items = generateRandomFoodOrder(true);
+  const timeRemaining = GAME_CONFIG.ORDER_SHELF_LIFE;
+  const shelfLife = GAME_CONFIG.ORDER_SHELF_LIFE;
+  const value = 250;
+  const isChallenge = true;
+
+  const order: OrderType = {
+    id,
+    items,
+    timeRemaining,
+    shelfLife,
+    value,
+    isChallenge,
+    name,
+  };
   return order;
 };
