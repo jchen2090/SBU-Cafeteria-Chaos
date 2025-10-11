@@ -34,6 +34,7 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
       // If no orders, immediately genereate one
       if (state.orders.length === 0) {
         dispatch({ type: "ADD_ORDER", payload: generateRandomOrder() });
+        return;
       }
       const rng = Math.min(0.25 + (GAME_CONFIG.DIFFICULTY - 1) * 0.15, 1);
       // Challenge orders always have a 33% to spawn in if a regular order doesn't spawn
@@ -44,7 +45,6 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
       } else if (Math.random() < specialOrderRng && state.challengeOrder) {
         dispatch({ type: "ADD_ORDER", payload: state.challengeOrder });
 
-        console.log("Add challenge order");
         dispatch({ type: "SET_CHALLENGE_ORDER", payload: null });
       }
     }, 1000);

@@ -17,4 +17,5 @@ export type GlobalActions =
   | { type: "DECREASE_ORDER_TIME" }
   | { type: "SET_HISTORICAL_DATA"; payload: { scores: Array<SavedGameType>; gamesPlayed: number } }
   | { type: "TOGGLE_CHALLENGE_MODE" }
-  | { type: "SET_CHALLENGE_ORDER"; payload: OrderType | null };
+  | { type: "SET_CHALLENGE_ORDER"; payload: OrderType | null }
+  | { type: "REDUCE_SCORE"; payload: number };

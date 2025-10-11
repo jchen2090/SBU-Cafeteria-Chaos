@@ -13,6 +13,17 @@ export const OrderCard = ({ order }: OrderCardProps) => {
   const isChallengeOrder = order.isChallenge;
   const timeBarPercentage = (order.timeRemaining / order.shelfLife) * 100;
 
+  // if (order.timeRemaining === 1) {
+  //   const quarterValue = order.value / 4;
+  //   const halfValue = order.value / 2;
+  //   const randomDecrease = Math.floor(Math.random() * (halfValue - quarterValue + 1) + quarterValue);
+  //   dispatch({ type: "REDUCE_SCORE", payload: randomDecrease });
+  // }
+
+  if (order.id === "t1") {
+    console.log(order.timeRemaining);
+  }
+
   return (
     <div
       className={`order-ticket p-2 rounded-lg shadow-lg flex flex-col bg-[#fffbe8] 

@@ -5,8 +5,10 @@
   - [ ] Fix animation for this
 - [x] Order timer bar change
 - [x] Orders
+  - [ ] Fix timer animation
   - [ ] Fix fade out animation (low priority)
   - [ ] Show negative and positive customer feedback based on correct or wrong orders
+  - [x] Subtract points on order lost 
   - [x] Generate random orders
     - [x] Difficulty slider 
   - [x] Submit orders
@@ -18,3 +20,4 @@
 - [ ] Random popup ads
 - [ ] ADA requirements
 - [x] Start script
+- [ ] Game over screen

@@ -55,13 +55,24 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
       return { ...state, trayItems: state.trayItems.filter((_, idx) => idx !== action.payload.food_idx) };
     case "SELECT_ORDER":
       return { ...state, selectedOrder: action.payload };
-    case "DECREASE_ORDER_TIME":
+    case "DECREASE_ORDER_TIME": {
+      const expiredOrders = state.orders.filter((order) => order.timeRemaining - 1 <= 0);
+
+      const penalty = expiredOrders.reduce(
+        (acc, order) => acc + Math.floor(Math.random() * (order.value / 2 - order.value / 4) + order.value / 4),
+        0
+      );
+
+      const updatedOrders = state.orders
+        .map((order) => ({ ...order, timeRemaining: Math.max(0, order.timeRemaining - 1) }))
+        .filter((order) => order.timeRemaining > 0);
+
       return {
         ...state,
-        orders: state.orders
-          .map((order) => ({ ...order, timeRemaining: Math.max(0, order.timeRemaining - 1) }))
-          .filter((order) => order.timeRemaining > 0),
+        orders: updatedOrders,
+        currentScore: Math.max(state.currentScore - penalty, 0),
       };
+    }
     case "SET_HISTORICAL_DATA":
       return {
         ...state,
@@ -72,6 +83,8 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
       return { ...state, isChallenge: true, gameHasStarted: true };
     case "SET_CHALLENGE_ORDER":
       return { ...state, challengeOrder: action.payload };
+    case "REDUCE_SCORE":
+      return { ...state, currentScore: (state.currentScore -= action.payload) };
     default:
       throw new Error("Missing case");
   }
