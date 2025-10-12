@@ -1,15 +1,16 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useEffect, useMemo, useReducer, type Dispatch, type ReactNode } from "react";
-import type { GameStateType } from "./types";
+import type { GameConfigType, GameStateType } from "./types";
 import type { GlobalActions } from "../reducers/game/actions";
 import { gameReducer } from "../reducers/game/gameReducer";
 import { getHistoricalData } from "../utils/Scores";
 
-export const GAME_CONFIG = {
+const GAME_CONFIG: GameConfigType = {
   GAME_DURATION: 60,
   ORDER_SHELF_LIFE: 20,
   DIFFICULTY: 1,
   MAX_ORDERS: 5,
+  FOOD_TRAY_POSITION: "BOTTOM",
 };
 
 export const initialState: GameStateType = {
@@ -33,6 +34,7 @@ export const initialState: GameStateType = {
   isChallenge: false,
   challengeOrder: null,
   clearedOrders: [],
+  config: GAME_CONFIG,
 };
 
 interface contextType {

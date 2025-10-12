@@ -16,6 +16,14 @@ export type clearedOrderType = {
   hasDisplayedToast: boolean;
 };
 
+export type GameConfigType = {
+  GAME_DURATION: number;
+  ORDER_SHELF_LIFE: number;
+  DIFFICULTY: 1 | 2 | 3 | 4 | 5;
+  MAX_ORDERS: number;
+  FOOD_TRAY_POSITION: "TOP" | "BOTTOM";
+};
+
 export type GameStateType = {
   orders: Array<OrderType>;
   timeRemaining: number;
@@ -28,6 +36,7 @@ export type GameStateType = {
   isChallenge: boolean;
   challengeOrder: OrderType | null;
   clearedOrders: Array<clearedOrderType>;
+  config: GameConfigType;
 };
 
 export type SavedGameType = {

@@ -3,7 +3,7 @@ import { FoodTray } from "../components/FoodTray";
 import { FoodButton } from "../components/FoodButton";
 import { OrderCard } from "../components/OrderCard";
 import { generateRandomOrder, getAllFoods, getRandomNegativeMessage, getRandomPositiveMessage } from "../utils/Foods";
-import { GAME_CONFIG, useGameContext } from "../providers/GameStateProvider";
+import { useGameContext } from "../providers/GameStateProvider";
 import { Flip, toast, ToastContainer, Zoom } from "react-toastify";
 import "../index.css";
 
@@ -65,7 +65,7 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
       }
 
       // Do not create more orders
-      if (state.orders.length === GAME_CONFIG.MAX_ORDERS) {
+      if (state.orders.length === state.config.MAX_ORDERS) {
         return;
       }
 
@@ -74,7 +74,7 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
         dispatch({ type: "ADD_ORDER", payload: generateRandomOrder() });
         return;
       }
-      const rng = Math.min(0.25 + (GAME_CONFIG.DIFFICULTY - 1) * 0.15, 1);
+      const rng = Math.min(0.25 + (state.config.DIFFICULTY - 1) * 0.15, 1);
       // Challenge orders always have a 33% to spawn in if a regular order doesn't spawn
       const specialOrderRng = 0.33;
 
@@ -88,7 +88,15 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
     }, 1000);
 
     return () => clearInterval(interval);
-  }, [dispatch, state.challengeOrder, state.isChallenge, state.orders.length, state.timeRemaining]);
+  }, [
+    dispatch,
+    state.challengeOrder,
+    state.config.DIFFICULTY,
+    state.config.MAX_ORDERS,
+    state.isChallenge,
+    state.orders.length,
+    state.timeRemaining,
+  ]);
 
   const TopBar = () => {
     return (
@@ -117,62 +125,87 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
     );
   };
 
-  return (
-    <div id="game-screen" className="flex game-screen w-full h-full flex-col relative bg-gray-300">
-      {/* <div id="demo-overlay" className="hidden"></div> */}
-      <ToastContainer
-        position="top-center"
-        autoClose={750}
-        limit={2}
-        hideProgressBar
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={false}
-        pauseOnFocusLoss
-        draggable={false}
-        pauseOnHover
-        theme="light"
-        transition={Zoom}
-      />
+  if (state.config.FOOD_TRAY_POSITION === "BOTTOM") {
+    return (
+      <div id="game-screen" className="flex game-screen w-full h-full flex-col relative bg-gray-300">
+        {/* <div id="demo-overlay" className="hidden"></div> */}
+        <ToastContainer
+          position="top-center"
+          autoClose={750}
+          limit={2}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover
+          theme="light"
+          transition={Zoom}
+        />
 
-      {/* <!-- Top Bar --> */}
-      <TopBar />
+        <TopBar />
 
-      {/* <!-- Order Area --> */}
-      <div
-        id="order-area"
-        className="flex-grow w-full p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 overflow-y-auto"
-      >
-        {state.orders.map((order) => (
-          <OrderCard order={order} />
-        ))}
-        {/* <!-- Order tickets will be injected here --> */}
+        <div
+          id="order-area"
+          className="flex-grow w-full p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 overflow-y-auto"
+        >
+          {state.orders.map((order) => (
+            <OrderCard order={order} />
+          ))}
+        </div>
+        <FoodTray />
+
+        <div
+          id="food-selection"
+          className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-4 p-4 bg-slate-700 border-t-8 border-slate-900"
+        >
+          {foods.map((food) => (
+            <FoodButton food={food} />
+          ))}
+        </div>
       </div>
+    );
+  } else {
+    return (
+      <div id="game-screen" className="flex game-screen w-full h-full flex-col relative bg-gray-300">
+        {/* <div id="demo-overlay" className="hidden"></div> */}
+        <ToastContainer
+          position="bottom-center"
+          autoClose={750}
+          limit={2}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover
+          theme="light"
+          transition={Zoom}
+        />
 
-      {/* <!-- Feedback Areas --> */}
-      {/* <div
-        id="feedback-area"
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none z-30"
-      ></div>
-      <div
-        id="customer-feedback-area"
-        className="absolute top-20 left-1/2 -translate-x-1/2 w-1/2 pointer-events-none z-20"
-      ></div> */}
+        <TopBar />
+        <div
+          id="food-selection"
+          className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-4 p-4 bg-slate-700 border-t-8 border-slate-900"
+        >
+          {foods.map((food) => (
+            <FoodButton food={food} />
+          ))}
+        </div>
 
-      {/* <!-- Current Assembly Area --> */}
+        <FoodTray />
 
-      <FoodTray />
-
-      {/* <!-- Food Selection Area --> */}
-
-      <div
-        id="food-selection"
-        className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-4 p-4 bg-slate-700 border-t-8 border-slate-900"
-      >
-        {foods.map((food) => (
-          <FoodButton food={food} />
-        ))}
+        <div
+          id="order-area"
+          className="flex-grow w-full p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 overflow-y-auto"
+        >
+          {state.orders.map((order) => (
+            <OrderCard order={order} />
+          ))}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 };

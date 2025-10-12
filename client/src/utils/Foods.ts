@@ -1,4 +1,4 @@
-import { GAME_CONFIG } from "../providers/GameStateProvider";
+import { initialState } from "../providers/GameStateProvider";
 import type { OrderType } from "../providers/types";
 
 const FOOD_ITEMS = {
@@ -87,8 +87,8 @@ const getRandomDailyName = () => {
 export const generateRandomOrder = () => {
   const id = `order-${Date.now()}`;
   const items = generateRandomFoodOrder(false);
-  const timeRemaining = GAME_CONFIG.ORDER_SHELF_LIFE;
-  const shelfLife = GAME_CONFIG.ORDER_SHELF_LIFE;
+  const timeRemaining = initialState.config.ORDER_SHELF_LIFE;
+  const shelfLife = initialState.config.ORDER_SHELF_LIFE;
   const value = items.length * 25;
   const isChallenge = false;
 
@@ -108,8 +108,8 @@ export const generateSpecialOrder = () => {
   const id = `speical-order`;
   const name = getRandomDailyName();
   const items = generateRandomFoodOrder(true);
-  const timeRemaining = GAME_CONFIG.ORDER_SHELF_LIFE;
-  const shelfLife = GAME_CONFIG.ORDER_SHELF_LIFE;
+  const timeRemaining = initialState.config.ORDER_SHELF_LIFE;
+  const shelfLife = initialState.config.ORDER_SHELF_LIFE;
   const value = 250;
   const isChallenge = true;
 

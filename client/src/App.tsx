@@ -3,14 +3,14 @@ import { StartScreen } from "./screens/StartScreen";
 import { GameScreen } from "./screens/GameScreen";
 import { useEffect } from "react";
 import { GameOverScreen } from "./screens/GameOverScreen";
-import { GAME_CONFIG, useGameContext } from "./providers/GameStateProvider";
+import { useGameContext } from "./providers/GameStateProvider";
 import type { HistoricalDataType } from "./providers/types";
 import { saveToFile } from "./utils/Scores";
 
 function App() {
   const { state, dispatch } = useGameContext();
 
-  const timeBarPercentage = (state.timeRemaining / GAME_CONFIG.GAME_DURATION) * 100;
+  const timeBarPercentage = (state.timeRemaining / state.config.GAME_DURATION) * 100;
 
   useEffect(() => {
     if (state.gameHasStarted) {

@@ -1,4 +1,4 @@
-import { GAME_CONFIG, initialState } from "../../providers/GameStateProvider";
+import { initialState } from "../../providers/GameStateProvider";
 import type { GameStateType } from "../../providers/types";
 import type { GlobalActions } from "./actions";
 
@@ -6,10 +6,6 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
   switch (action.type) {
     case "ADD_ORDER":
       return { ...state, orders: [...state.orders, action.payload] };
-    case "REMOVE_ORDER":
-      throw new Error("Not implemented");
-    case "CLEAR_ORDERS":
-      throw new Error("Not implemented");
     case "ADD_TO_TRAY":
       return { ...state, trayItems: [...state.trayItems, action.payload] };
     case "CLEAR_TRAY":
@@ -21,7 +17,7 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
     case "DECREASE_TIME":
       return { ...state, timeRemaining: Math.max(0, state.timeRemaining - 1) };
     case "RESET_TIME":
-      return { ...state, timeRemaining: GAME_CONFIG.GAME_DURATION };
+      return { ...state, timeRemaining: state.config.GAME_DURATION };
     case "SUBMIT_TRAY": {
       const selectedOrder = state.selectedOrder;
       const trayItems = state.trayItems;
@@ -99,6 +95,8 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
 
       return { ...state, clearedOrders: updatedOrders };
     }
+    case "CHANGE_TRAY_POSITION":
+      return { ...state, config: { ...state.config, FOOD_TRAY_POSITION: action.payload } };
     default:
       throw new Error("Missing case");
   }

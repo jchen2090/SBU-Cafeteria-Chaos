@@ -2,11 +2,13 @@ import { useState } from "react";
 import { HighScoreModal } from "../components/HighScoreModal";
 import { useGameContext } from "../providers/GameStateProvider";
 import { DailySpecialModal } from "../components/DailySpecialModal";
+import { SettingsModal } from "../components/SettingsModal";
 
 export const StartScreen = () => {
   const { state, dispatch } = useGameContext();
   const [highScoreModal, setHighScoreModal] = useState(false);
   const [dailySpecialModal, setDailySpecialModal] = useState(false);
+  const [settingsModal, setSettingsModal] = useState(false);
 
   const startGame = () => {
     dispatch({ type: "START_GAME" });
@@ -57,7 +59,7 @@ export const StartScreen = () => {
           >
             Start Game
           </button>
-          <div className="flex gap-4 justify-center mt-6">
+          <div className="flex gap-4 justify-center items-center mt-6">
             <button
               id="high-scores-btn"
               className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700 cursor-pointer"
@@ -73,10 +75,19 @@ export const StartScreen = () => {
               ✨ Daily Special
             </button>
           </div>
+          <div className="flex justify-end">
+            <button
+              className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700 cursor-pointer"
+              onClick={() => setSettingsModal(true)}
+            >
+              ⚙️
+            </button>
+          </div>
         </div>
       </div>
       <HighScoreModal open={highScoreModal} scores={state.highScores} onOpenChange={setHighScoreModal} />
       <DailySpecialModal open={dailySpecialModal} onOpenChange={setDailySpecialModal} />
+      <SettingsModal open={settingsModal} onOpenChange={setSettingsModal} />
     </div>
   );
 };

@@ -18,6 +18,6 @@
   - [x] Server setup
 - [x] Special Orders
 - [ ] Random popup ads
-- [ ] ADA requirements
+- [x] ADA requirements
 - [x] Start script
 - [ ] Game over screen

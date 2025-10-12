@@ -3,8 +3,6 @@ import type { availableFoods } from "../../utils/Foods";
 
 export type GlobalActions =
   | { type: "ADD_ORDER"; payload: OrderType }
-  | { type: "REMOVE_ORDER"; payload: { order_idx: number } } // id
-  | { type: "CLEAR_ORDERS" }
   | { type: "START_GAME" }
   | { type: "STOP_GAME" }
   | { type: "DECREASE_TIME" }
@@ -19,4 +17,5 @@ export type GlobalActions =
   | { type: "TOGGLE_CHALLENGE_MODE" }
   | { type: "SET_CHALLENGE_ORDER"; payload: OrderType | null }
   | { type: "REDUCE_SCORE"; payload: number }
-  | { type: "REMOVE_FROM_CLEARED_ORDERS"; payload: clearedOrderType };
+  | { type: "REMOVE_FROM_CLEARED_ORDERS"; payload: clearedOrderType }
+  | { type: "CHANGE_TRAY_POSITION"; payload: "TOP" | "BOTTOM" };
