@@ -19,6 +19,7 @@ export const DemoScreen = () => {
       isChallenge: false,
     },
   ]);
+  const [score, setScore] = useState(0);
   const foods = getAllFoods();
   const [trayItems, setTrayItems] = useState<availableFoods[]>([]);
 
@@ -33,6 +34,7 @@ export const DemoScreen = () => {
       } else if (trayItems.length === 1) {
         setTrayItems((curr) => [...curr, "pizza"]);
       } else {
+        setScore((curr) => curr + testOrder[0].value);
         setTrayItems([]);
         setTestOrder([]);
         const message = getRandomPositiveMessage();
@@ -63,7 +65,7 @@ export const DemoScreen = () => {
       <>
         <div className="bg-slate-800 text-white p-4 flex justify-between items-center shadow-lg z-10">
           <div className="text-2xl md:text-4xl font-bold">
-            Score: <span id="score">0</span>
+            Score: <span id="score">{score}</span>
           </div>
           <div id="game-name-ingame-display" className="text-4xl md:text-6xl font-bangers text-yellow-300">
             Cafeteria Chaos

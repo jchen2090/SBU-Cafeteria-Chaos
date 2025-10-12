@@ -15,16 +15,7 @@ const GAME_CONFIG: GameConfigType = {
 };
 
 export const initialState: GameStateType = {
-  orders: [
-    {
-      id: "t1",
-      items: ["burger", "pizza"],
-      timeRemaining: 20,
-      shelfLife: 20,
-      value: 25,
-      isChallenge: false,
-    },
-  ],
+  orders: [],
   timeRemaining: 60,
   gameHasStarted: false,
   trayItems: [],

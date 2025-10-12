@@ -14,7 +14,7 @@ function App() {
   const timeBarPercentage = (state.timeRemaining / state.config.GAME_DURATION) * 100;
 
   // Demo screen logic
-  // TODO: Refactor
+  // BUG: Refactor and recheck logic, we're still hitting this even on the endscreen and game screen. I've put a bandaid solution in the loaded component
   useEffect(() => {
     let interval = setInterval(() => {
       if (!state.isDemoMode) {
@@ -61,7 +61,7 @@ function App() {
 
   let loadedComponent;
 
-  if (state.isDemoMode) {
+  if (state.isDemoMode && !state.gameHasStarted && !state.gameIsOver) {
     loadedComponent = <DemoScreen />;
   } else if (state.gameIsOver) {
     loadedComponent = <GameOverScreen />;
