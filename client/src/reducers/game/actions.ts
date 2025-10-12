@@ -5,8 +5,8 @@ export type GlobalActions =
   | { type: "ADD_ORDER"; payload: OrderType }
   | { type: "START_GAME" }
   | { type: "STOP_GAME" }
+  | { type: "MAIN_MENU" }
   | { type: "DECREASE_TIME" }
-  | { type: "RESET_TIME" }
   | { type: "CLEAR_TRAY" }
   | { type: "ADD_TO_TRAY"; payload: availableFoods }
   | { type: "SUBMIT_TRAY" }
@@ -14,6 +14,7 @@ export type GlobalActions =
   | { type: "SELECT_ORDER"; payload: OrderType }
   | { type: "DECREASE_ORDER_TIME" }
   | { type: "SET_HISTORICAL_DATA"; payload: { scores: Array<SavedGameType>; gamesPlayed: number } }
+  | { type: "ADD_NEW_RECORD"; payload: { iniitals: string; score: number } }
   | { type: "TOGGLE_CHALLENGE_MODE" }
   | { type: "SET_CHALLENGE_ORDER"; payload: OrderType | null }
   | { type: "REDUCE_SCORE"; payload: number }

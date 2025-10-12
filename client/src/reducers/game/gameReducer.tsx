@@ -11,13 +11,18 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
     case "CLEAR_TRAY":
       return { ...state, trayItems: [] };
     case "START_GAME":
-      return { ...state, gameHasStarted: true, gamesPlayed: state.gamesPlayed + 1 };
+      return {
+        ...initialState,
+        gameHasStarted: true,
+        gamesPlayed: state.gamesPlayed + 1,
+        highScores: state.highScores,
+      };
     case "STOP_GAME":
+      return { ...state, gamesPlayed: state.gamesPlayed, highScores: state.highScores, gameIsOver: true };
+    case "MAIN_MENU":
       return { ...initialState, gamesPlayed: state.gamesPlayed, highScores: state.highScores };
     case "DECREASE_TIME":
       return { ...state, timeRemaining: Math.max(0, state.timeRemaining - 1) };
-    case "RESET_TIME":
-      return { ...state, timeRemaining: state.config.GAME_DURATION };
     case "SUBMIT_TRAY": {
       const selectedOrder = state.selectedOrder;
       const trayItems = state.trayItems;
@@ -91,9 +96,15 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
       return { ...state, currentScore: (state.currentScore -= action.payload) };
     case "REMOVE_FROM_CLEARED_ORDERS": {
       const orderToRemove = action.payload;
+      const orderIsCompleted = orderToRemove.isCompleted;
+
       const updatedOrders = state.clearedOrders.filter((order) => order.order.id !== orderToRemove.order.id);
 
-      return { ...state, clearedOrders: updatedOrders };
+      if (orderIsCompleted) {
+        return { ...state, clearedOrders: updatedOrders, ordersFulfilled: state.ordersFulfilled + 1 };
+      } else {
+        return { ...state, clearedOrders: updatedOrders, ordersLost: state.ordersLost + 1 };
+      }
     }
     case "CHANGE_TRAY_POSITION":
       return { ...state, config: { ...state.config, FOOD_TRAY_POSITION: action.payload } };

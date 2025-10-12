@@ -22,6 +22,7 @@ export type GameConfigType = {
   DIFFICULTY: 1 | 2 | 3 | 4 | 5;
   MAX_ORDERS: number;
   FOOD_TRAY_POSITION: "TOP" | "BOTTOM";
+  MAX_RECORDS: number;
 };
 
 export type GameStateType = {
@@ -37,6 +38,9 @@ export type GameStateType = {
   challengeOrder: OrderType | null;
   clearedOrders: Array<clearedOrderType>;
   config: GameConfigType;
+  gameIsOver: boolean;
+  ordersFulfilled: number;
+  ordersLost: number;
 };
 
 export type SavedGameType = {

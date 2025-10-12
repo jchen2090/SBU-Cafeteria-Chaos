@@ -11,6 +11,7 @@ const GAME_CONFIG: GameConfigType = {
   DIFFICULTY: 1,
   MAX_ORDERS: 5,
   FOOD_TRAY_POSITION: "BOTTOM",
+  MAX_RECORDS: 10,
 };
 
 export const initialState: GameStateType = {
@@ -24,7 +25,7 @@ export const initialState: GameStateType = {
       isChallenge: false,
     },
   ],
-  timeRemaining: 30,
+  timeRemaining: 60,
   gameHasStarted: false,
   trayItems: [],
   selectedOrder: null,
@@ -34,7 +35,10 @@ export const initialState: GameStateType = {
   isChallenge: false,
   challengeOrder: null,
   clearedOrders: [],
+  gameIsOver: false,
   config: GAME_CONFIG,
+  ordersFulfilled: 0,
+  ordersLost: 0,
 };
 
 interface contextType {

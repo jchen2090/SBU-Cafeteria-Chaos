@@ -37,7 +37,7 @@ function App() {
 
   let loadedComponent;
 
-  if (state.timeRemaining === 0) {
+  if (state.gameIsOver) {
     loadedComponent = <GameOverScreen />;
   } else if (state.gameHasStarted) {
     loadedComponent = <GameScreen timeBarPercentage={timeBarPercentage} />;

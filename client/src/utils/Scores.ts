@@ -1,5 +1,7 @@
+import { initialState } from "../providers/GameStateProvider";
 import type { HistoricalDataType } from "../providers/types";
 
+// TODO: Investigate storage concerns by saving all the records
 export const getHistoricalData = async () => {
   const response = await fetch("/api/scores");
 
@@ -9,7 +11,11 @@ export const getHistoricalData = async () => {
     // Sort in descending order so first item is the highest
     data.highScores.sort((a, b) => b.score - a.score);
 
-    return data;
+    const dataToReturn = {
+      highScores: data.highScores.slice(0, initialState.config.MAX_RECORDS),
+      gamesPlayed: data.gamesPlayed,
+    };
+    return dataToReturn;
   } else {
     return { highScores: [], gamesPlayed: 0 };
   }

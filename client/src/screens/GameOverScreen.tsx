@@ -1,87 +1,134 @@
+import { useEffect, useState } from "react";
+import { useGameContext } from "../providers/GameStateProvider";
+import { saveToFile } from "../utils/Scores";
+
 export const GameOverScreen = () => {
+  const { state, dispatch } = useGameContext();
+  const isNewRecord =
+    state.highScores.length === 0 || state.currentScore > state.highScores[state.highScores.length - 1].score;
+  const [initials, setInitials] = useState<string[]>([]);
+  const [renderButtons, setRenderButtons] = useState(!isNewRecord);
+  const [timeBeforeMenu, setTimeBeforeMenu] = useState(30);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTimeBeforeMenu((curr) => curr - 1);
+
+      if (timeBeforeMenu === 0) {
+        dispatch({ type: "MAIN_MENU" });
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  });
+
+  const KEYS = "QWERTYUIOPASDFGHJKLZXCVBNM←".split("");
+
+  const handleKeyPress = (key: string) => {
+    if (key === "←") {
+      setInitials((initials) => initials.slice(0, initials.length - 1));
+    } else if (initials.length !== 3) {
+      setInitials([...initials, key]);
+    }
+  };
+
+  const playAgain = () => {
+    dispatch({ type: "START_GAME" });
+  };
+
+  const mainMenu = () => {
+    dispatch({ type: "MAIN_MENU" });
+  };
+
+  const submitNewRecord = () => {
+    const historicalRecord = {
+      highScores: [...state.highScores, { initials: initials.join(""), score: state.currentScore }],
+      gamesPlayed: state.gamesPlayed,
+    };
+    saveToFile(historicalRecord);
+    setRenderButtons((curr) => !curr);
+  };
+
   return (
-    <div
-      id="game-over-screen"
-      className="w-full h-full hidden flex-col items-center justify-center text-center bg-slate-800 text-white p-8 relative overflow-y-auto"
-    >
-      <h1
-        className="font-bangers text-9xl text-red-500"
-        // style="text-shadow: 4px 4px 0px #000"
-      >
-        Game Over!
-      </h1>
+    <div className="w-full h-full flex-col text-center bg-slate-800 text-white p-8">
+      <h1 className="font-bangers text-9xl text-red-500 text-shadow-lg">Game Over!</h1>
       <p className="text-4xl mt-4 mb-2">Your Final Score:</p>
       <p id="final-score" className="text-8xl font-bold text-yellow-400 mb-8">
-        0
+        {state.currentScore}
       </p>
-
-      <div className="grid grid-cols-3 gap-4 text-2xl mb-8 w-full max-w-4xl">
+      <div className="grid grid-cols-2 gap-4 text-2xl mb-8 max-w-4xl w-full m-auto">
         <div className="bg-slate-700 p-4 rounded-lg">
           <p className="font-bold text-green-400">Orders Fulfilled</p>
           <p id="orders-fulfilled" className="text-5xl font-bold">
-            0
+            {state.ordersFulfilled}
           </p>
         </div>
         <div className="bg-slate-700 p-4 rounded-lg">
           <p className="font-bold text-red-400">Orders Lost</p>
           <p id="orders-lost" className="text-5xl font-bold">
-            0
+            {state.ordersLost}
           </p>
         </div>
-        <div className="bg-slate-700 p-4 rounded-lg">
+        {/* TODO: Currently not keeping track of this statistic */}
+        {/* <div className="bg-slate-700 p-4 rounded-lg">
           <p className="font-bold text-blue-400">Avg. Fulfillment</p>
           <p id="avg-time" className="text-5xl font-bold">
             0s
           </p>
-        </div>
+        </div> */}
       </div>
-
-      <div id="new-highscore-input" className="hidden w-full max-w-2xl">
+      <div className={`w-full max-w-2xl mx-auto ${renderButtons ? "hidden" : ""}`}>
         <p className="text-3xl text-yellow-300 font-bold mb-2">🎉 New High Score! 🎉</p>
         <p className="text-xl mb-4">Enter your initials:</p>
         <div className="flex items-center justify-center gap-2 mb-4">
-          <div
-            id="initial-1"
-            className="w-20 h-24 bg-slate-900 text-6xl font-bold flex items-center justify-center rounded-lg border-4 border-slate-600"
-          ></div>
-          <div
-            id="initial-2"
-            className="w-20 h-24 bg-slate-900 text-6xl font-bold flex items-center justify-center rounded-lg border-4 border-slate-600"
-          ></div>
-          <div
-            id="initial-3"
-            className="w-20 h-24 bg-slate-900 text-6xl font-bold flex items-center justify-center rounded-lg border-4 border-slate-600"
-          ></div>
+          <div className="w-20 h-24 bg-slate-900 text-6xl font-bold flex items-center justify-center rounded-lg border-4 border-slate-600">
+            {initials[0] ?? ""}
+          </div>
+          <div className="w-20 h-24 bg-slate-900 text-6xl font-bold flex items-center justify-center rounded-lg border-4 border-slate-600">
+            {initials[1] ?? ""}
+          </div>
+          <div className="w-20 h-24 bg-slate-900 text-6xl font-bold flex items-center justify-center rounded-lg border-4 border-slate-600">
+            {initials[2] ?? ""}
+          </div>
         </div>
-        <div id="on-screen-keyboard" className="grid grid-cols-10 gap-2 text-2xl font-bold">
-          {/* <!-- Keys will be generated here --> */}
+        <div className="grid grid-cols-10 gap-2 text-2xl font-bold">
+          {KEYS.map((key) => (
+            <button className="bg-slate-600 hover:bg-slate-500 p-4 rounded-lg" onClick={() => handleKeyPress(key)}>
+              {key}
+            </button>
+          ))}
         </div>
         <button
           id="submit-initials-btn"
-          className="mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-8 rounded-full text-xl opacity-50 cursor-not-allowed"
-          disabled
+          className={`mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-8 rounded-full text-xl ${
+            initials.length !== 3 ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+          }`}
+          disabled={initials.length === 3 ? false : true}
+          onClick={submitNewRecord}
         >
           Submit
         </button>
       </div>
-
-      <div className="flex gap-4 mt-8">
-        <button
-          id="play-again-btn"
-          className="bg-green-500 hover:bg-green-600 text-white font-bold text-4xl py-6 px-12 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-green-700"
-        >
-          Play Again
-        </button>
-        <button
-          id="main-menu-btn"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700"
-        >
-          Main Menu
-        </button>
-      </div>
-
+      {renderButtons && (
+        <div className="flex justify-center gap-4 mt-8">
+          <button
+            id="play-again-btn"
+            className="bg-green-500 hover:bg-green-600 text-white font-bold text-2xl py-6 px-12 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-green-700 cursor-pointer"
+            onClick={playAgain}
+          >
+            Play Again
+          </button>
+          <button
+            id="main-menu-btn"
+            className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700 cursor-pointer"
+            onClick={mainMenu}
+          >
+            Main Menu
+          </button>
+        </div>
+      )}
       <div id="auto-return-timer" className="absolute bottom-4 right-4 text-slate-400 text-lg">
-        Returning to menu in <span id="auto-return-countdown">15</span>s...
+        Returning to menu in <span id="auto-return-countdown">{timeBeforeMenu}</span>s...
       </div>
     </div>
   );

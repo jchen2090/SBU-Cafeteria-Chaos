@@ -20,4 +20,4 @@
 - [ ] Random popup ads
 - [x] ADA requirements
 - [x] Start script
-- [ ] Game over screen
+  - [x] Game over screen
