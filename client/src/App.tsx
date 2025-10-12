@@ -6,11 +6,35 @@ import { GameOverScreen } from "./screens/GameOverScreen";
 import { useGameContext } from "./providers/GameStateProvider";
 import type { HistoricalDataType } from "./providers/types";
 import { saveToFile } from "./utils/Scores";
+import { DemoScreen } from "./screens/DemoScreen";
 
 function App() {
   const { state, dispatch } = useGameContext();
 
   const timeBarPercentage = (state.timeRemaining / state.config.GAME_DURATION) * 100;
+
+  // Demo screen logic
+  // TODO: Refactor
+  useEffect(() => {
+    let interval = setInterval(() => {
+      if (!state.isDemoMode) {
+        dispatch({ type: "TOGGLE_DEMO_MODE", payload: true });
+      }
+    }, 4000);
+
+    document.body.addEventListener("click", () => {
+      clearInterval(interval);
+
+      interval = setInterval(() => {
+        if (!state.isDemoMode) {
+          dispatch({ type: "TOGGLE_DEMO_MODE", payload: true });
+          console.log("toggle demo mode");
+        }
+      }, 4000);
+    });
+
+    return () => clearInterval(interval);
+  }, [dispatch, state.isDemoMode]);
 
   useEffect(() => {
     if (state.gameHasStarted) {
@@ -37,7 +61,9 @@ function App() {
 
   let loadedComponent;
 
-  if (state.gameIsOver) {
+  if (state.isDemoMode) {
+    loadedComponent = <DemoScreen />;
+  } else if (state.gameIsOver) {
     loadedComponent = <GameOverScreen />;
   } else if (state.gameHasStarted) {
     loadedComponent = <GameScreen timeBarPercentage={timeBarPercentage} />;

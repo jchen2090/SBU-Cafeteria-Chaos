@@ -108,6 +108,8 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
     }
     case "CHANGE_TRAY_POSITION":
       return { ...state, config: { ...state.config, FOOD_TRAY_POSITION: action.payload } };
+    case "TOGGLE_DEMO_MODE":
+      return { ...state, isDemoMode: action.payload };
     default:
       throw new Error("Missing case");
   }

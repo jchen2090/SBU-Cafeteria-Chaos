@@ -39,6 +39,7 @@ export const initialState: GameStateType = {
   config: GAME_CONFIG,
   ordersFulfilled: 0,
   ordersLost: 0,
+  isDemoMode: false,
 };
 
 interface contextType {

@@ -41,6 +41,7 @@ export type GameStateType = {
   gameIsOver: boolean;
   ordersFulfilled: number;
   ordersLost: number;
+  isDemoMode: boolean;
 };
 
 export type SavedGameType = {

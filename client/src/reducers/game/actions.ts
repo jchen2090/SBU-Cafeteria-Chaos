@@ -19,4 +19,5 @@ export type GlobalActions =
   | { type: "SET_CHALLENGE_ORDER"; payload: OrderType | null }
   | { type: "REDUCE_SCORE"; payload: number }
   | { type: "REMOVE_FROM_CLEARED_ORDERS"; payload: clearedOrderType }
-  | { type: "CHANGE_TRAY_POSITION"; payload: "TOP" | "BOTTOM" };
+  | { type: "CHANGE_TRAY_POSITION"; payload: "TOP" | "BOTTOM" }
+  | { type: "TOGGLE_DEMO_MODE"; payload: boolean };

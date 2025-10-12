@@ -1,6 +1,6 @@
 # TODO
 
-- [ ] Demo
+- [x] Demo
 - [x] Timer bar change
   - [ ] Fix animation for this
 - [x] Order timer bar change
@@ -20,4 +20,4 @@
 - [ ] Random popup ads
 - [x] ADA requirements
 - [x] Start script
-  - [x] Game over screen
+- [x] Game over screen
