@@ -2,7 +2,7 @@
 
 - [x] Demo
 - [x] Timer bar change
-  - [ ] Fix animation for this
+  - [x] Fix animation for this
 - [x] Order timer bar change
 - [x] Orders
   - [ ] Fix timer animation

@@ -7,13 +7,11 @@ import { useGameContext } from "../providers/GameStateProvider";
 import { Flip, toast, ToastContainer, Zoom } from "react-toastify";
 import "../index.css";
 
-type GameScreenProps = {
-  timeBarPercentage: number;
-};
-
-export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
+export const GameScreen = () => {
   const { state, dispatch } = useGameContext();
   const foods = getAllFoods();
+
+  const timeBarPercentage = (state.timeRemaining / state.config.GAME_DURATION) * 100;
 
   useEffect(() => {
     state.clearedOrders.forEach((order) => {
@@ -98,9 +96,25 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
     state.timeRemaining,
   ]);
 
-  const TopBar = () => {
+  if (state.config.FOOD_TRAY_POSITION === "BOTTOM") {
     return (
-      <>
+      <div id="game-screen" className="flex game-screen w-full h-full flex-col relative bg-gray-300">
+        {/* <div id="demo-overlay" className="hidden"></div> */}
+        <ToastContainer
+          position="top-center"
+          autoClose={750}
+          limit={2}
+          hideProgressBar
+          newestOnTop={false}
+          closeOnClick={false}
+          rtl={false}
+          pauseOnFocusLoss
+          draggable={false}
+          pauseOnHover
+          theme="light"
+          transition={Zoom}
+        />
+
         <div className="bg-slate-800 text-white p-4 flex justify-between items-center shadow-lg z-10">
           <div className="text-2xl md:text-4xl font-bold">
             Score: <span id="score">{state.currentScore}</span>
@@ -121,30 +135,6 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
             className={"h-full bg-green-500 timer-bar-inner"}
           ></div>
         </div>
-      </>
-    );
-  };
-
-  if (state.config.FOOD_TRAY_POSITION === "BOTTOM") {
-    return (
-      <div id="game-screen" className="flex game-screen w-full h-full flex-col relative bg-gray-300">
-        {/* <div id="demo-overlay" className="hidden"></div> */}
-        <ToastContainer
-          position="top-center"
-          autoClose={750}
-          limit={2}
-          hideProgressBar
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable={false}
-          pauseOnHover
-          theme="light"
-          transition={Zoom}
-        />
-
-        <TopBar />
 
         <div
           id="order-area"
@@ -185,7 +175,27 @@ export const GameScreen = ({ timeBarPercentage }: GameScreenProps) => {
           transition={Zoom}
         />
 
-        <TopBar />
+        <div className="bg-slate-800 text-white p-4 flex justify-between items-center shadow-lg z-10">
+          <div className="text-2xl md:text-4xl font-bold">
+            Score: <span id="score">{state.currentScore}</span>
+          </div>
+          <div id="game-name-ingame-display" className="text-4xl md:text-6xl font-bangers text-yellow-300">
+            Cafeteria Chaos
+          </div>
+          <div className="text-2xl md:text-4xl font-bold">
+            Time: <span id="time">{state.timeRemaining}</span>
+          </div>
+        </div>
+        <div className="w-full h-4 bg-gray-300">
+          <div
+            id="timer-bar"
+            style={{
+              width: `${timeBarPercentage}%`,
+            }}
+            className={"h-full bg-green-500 timer-bar-inner"}
+          ></div>
+        </div>
+
         <div
           id="food-selection"
           className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-4 p-4 bg-slate-700 border-t-8 border-slate-900"

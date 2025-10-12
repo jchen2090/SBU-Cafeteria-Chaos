@@ -11,7 +11,7 @@ import { DemoScreen } from "./screens/DemoScreen";
 function App() {
   const { state, dispatch } = useGameContext();
 
-  const timeBarPercentage = (state.timeRemaining / state.config.GAME_DURATION) * 100;
+  // const timeBarPercentage = (state.timeRemaining / state.config.GAME_DURATION) * 100;
 
   // Demo screen logic
   // BUG: Refactor and recheck logic, we're still hitting this even on the endscreen and game screen. I've put a bandaid solution in the loaded component
@@ -66,7 +66,7 @@ function App() {
   } else if (state.gameIsOver) {
     loadedComponent = <GameOverScreen />;
   } else if (state.gameHasStarted) {
-    loadedComponent = <GameScreen timeBarPercentage={timeBarPercentage} />;
+    loadedComponent = <GameScreen />;
   } else {
     loadedComponent = <StartScreen />;
   }
