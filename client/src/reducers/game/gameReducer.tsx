@@ -5,7 +5,7 @@ import type { GlobalActions } from "./actions";
 export function gameReducer(state: GameStateType, action: GlobalActions): GameStateType {
   switch (action.type) {
     case "ADD_ORDER": {
-      console.log(`adding order to order state: ${action.payload}`);
+      console.log(`adding order to order state: ${JSON.stringify(action.payload, null, 4)}`);
       return { ...state, orders: [...state.orders, action.payload] };
     }
     case "ADD_TO_TRAY": {
@@ -16,11 +16,16 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
       console.log("clearing tray");
       return { ...state, trayItems: [] };
     }
+    // FIXME: I don't like this... create a separate action to reset the state
     case "START_GAME": {
       console.log("starting game");
       return {
         ...initialState,
-        config: { ...state.config },
+        config: {
+          ...state.config,
+          DIFFICULTY: initialState.config.DIFFICULTY,
+          ORDER_SHELF_LIFE: initialState.config.ORDER_SHELF_LIFE,
+        },
         gameHasStarted: true,
         gamesPlayed: state.gamesPlayed + 1,
         highScores: state.highScores,
@@ -139,6 +144,17 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
     case "TOGGLE_DEMO_MODE": {
       console.log("demo mode is turned on");
       return { ...state, isDemoMode: action.payload };
+    }
+    case "INCREASE_DIFFICULTY": {
+      console.log("Increasing difficulty");
+
+      const updatedDifficulty = Math.min(5, state.config.DIFFICULTY + 1) as 1 | 2 | 3 | 4 | 5;
+      const updatedOrderShelfLife = initialState.config.ORDER_SHELF_LIFE - (updatedDifficulty - 1) * 3;
+
+      return {
+        ...state,
+        config: { ...state.config, DIFFICULTY: updatedDifficulty, ORDER_SHELF_LIFE: updatedOrderShelfLife },
+      };
     }
     default:
       throw new Error("Missing case");
