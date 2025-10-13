@@ -10,7 +10,7 @@ This project is currently on display at Stony Brook University (West Side Dining
 
 ## Demo
 
-https://github.com/user-attachments/assets/dc8f4c12-4f15-4928-a869-113ac84b49d5
+https://github.com/user-attachments/assets/b008799f-c78f-48c4-8caf-e15346859fd4
 
 ## Features
 
