@@ -1,9 +1,24 @@
-# TODO:
+# TODO
 
-- [ ] Demo
-- [ ] Timer bar change
-- [ ] Order timer bar change
-- [ ] Orders
-- [ ] Points
-- [ ] High scores
-- [ ] Special Orders
+- [x] Demo
+- [x] Add logging for future debugging
+- [x] Timer bar change
+  - [x] Fix animation for this
+- [x] Order timer bar change
+- [x] Orders
+  - [ ] Fix timer animation
+  - [ ] Fix fade out animation (low priority)
+  - [x] Show negative and positive customer feedback based on correct or wrong orders
+  - [x] Generate random orders
+    - [x] Difficulty slider 
+  - [x] Submit orders
+- [x] Points
+  - [x] Popup showing differences in points
+- [x] High scores
+  - [x] leaderboard
+  - [x] Server setup
+- [x] Special Orders
+- [ ] Random popup ads
+- [x] ADA requirements
+- [x] Start script
+- [x] Game over screen
