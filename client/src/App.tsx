@@ -35,6 +35,7 @@ function App() {
     return () => clearInterval(interval);
   }, [dispatch, state.isDemoMode]);
 
+  // Time decrease logic
   useEffect(() => {
     if (state.gameHasStarted) {
       const interval = setInterval(() => {
@@ -57,6 +58,16 @@ function App() {
       return;
     }
   }, [dispatch, state.timeRemaining, state.gameHasStarted, state.highScores, state.gamesPlayed]);
+
+  useEffect(() => {
+    if (state.gameHasStarted) {
+      const interval = setInterval(() => {
+        dispatch({ type: "INCREASE_DIFFICULTY" });
+      }, Math.floor(state.config.GAME_DURATION / 4) * 1000);
+
+      return () => clearInterval(interval);
+    }
+  }, [dispatch, state.config.DIFFICULTY, state.config.GAME_DURATION, state.gameHasStarted]);
 
   let loadedComponent;
 

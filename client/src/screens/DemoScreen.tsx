@@ -7,6 +7,7 @@ import { FoodTrayItem } from "../components/FoodTrayItem";
 import type { OrderType } from "../providers/types";
 import { useGameContext } from "../providers/GameStateProvider";
 
+// TODO: Refactor this(?) straight copied from GameScreen.tsx
 export const DemoScreen = () => {
   const { dispatch } = useGameContext();
   const [testOrder, setTestOrder] = useState<OrderType[]>([
@@ -147,7 +148,7 @@ export const DemoScreen = () => {
 
       <div
         id="food-selection"
-        className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-4 p-4 bg-slate-700 border-t-8 border-slate-900"
+        className="flex justify-center items-center gap-4 p-4 bg-slate-700 border-t-8 border-slate-900"
       >
         {foods.map((food) => (
           <FoodButton food={food} />

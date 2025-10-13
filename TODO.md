@@ -6,7 +6,7 @@
   - [x] Fix animation for this
 - [x] Order timer bar change
 - [x] Orders
-  - [ ] Fix timer animation
+  - [x] Fix timer animation
   - [ ] Fix fade out animation (low priority)
   - [x] Show negative and positive customer feedback based on correct or wrong orders
   - [x] Generate random orders
@@ -22,3 +22,4 @@
 - [x] ADA requirements
 - [x] Start script
 - [x] Game over screen
+- [x] Make game harder as time goes on

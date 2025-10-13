@@ -9,8 +9,8 @@ interface DailySpecialModalProps {
 }
 
 export const DailySpecialModal = ({ open, onOpenChange }: DailySpecialModalProps) => {
-  const { dispatch } = useGameContext();
-  const specialOrder = generateSpecialOrder();
+  const { state, dispatch } = useGameContext();
+  const specialOrder = generateSpecialOrder(state.config.ORDER_SHELF_LIFE);
 
   const addSpecialOrder = () => {
     dispatch({ type: "TOGGLE_CHALLENGE_MODE" });

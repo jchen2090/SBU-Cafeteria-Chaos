@@ -69,7 +69,7 @@ export const GameScreen = () => {
 
       // If no orders, immediately genereate one
       if (state.orders.length === 0) {
-        dispatch({ type: "ADD_ORDER", payload: generateRandomOrder() });
+        dispatch({ type: "ADD_ORDER", payload: generateRandomOrder(state.config.ORDER_SHELF_LIFE) });
         return;
       }
       const rng = Math.min(0.25 + (state.config.DIFFICULTY - 1) * 0.15, 1);
@@ -77,7 +77,7 @@ export const GameScreen = () => {
       const specialOrderRng = 0.33;
 
       if (Math.random() < rng) {
-        dispatch({ type: "ADD_ORDER", payload: generateRandomOrder() });
+        dispatch({ type: "ADD_ORDER", payload: generateRandomOrder(state.config.ORDER_SHELF_LIFE) });
       } else if (Math.random() < specialOrderRng && state.challengeOrder) {
         dispatch({ type: "ADD_ORDER", payload: state.challengeOrder });
 
@@ -91,11 +91,13 @@ export const GameScreen = () => {
     state.challengeOrder,
     state.config.DIFFICULTY,
     state.config.MAX_ORDERS,
+    state.config.ORDER_SHELF_LIFE,
     state.isChallenge,
     state.orders.length,
     state.timeRemaining,
   ]);
 
+  // TODO: Fix this code redundancy...
   if (state.config.FOOD_TRAY_POSITION === "BOTTOM") {
     return (
       <div id="game-screen" className="flex game-screen w-full h-full flex-col relative bg-gray-300">
@@ -141,17 +143,17 @@ export const GameScreen = () => {
           className="flex-grow w-full p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 overflow-y-auto"
         >
           {state.orders.map((order) => (
-            <OrderCard order={order} />
+            <OrderCard order={order} key={order.id} />
           ))}
         </div>
         <FoodTray />
 
         <div
           id="food-selection"
-          className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-4 p-4 bg-slate-700 border-t-8 border-slate-900"
+          className="flex justify-center items-center gap-4 p-4 bg-slate-700 border-t-8 border-slate-900"
         >
-          {foods.map((food) => (
-            <FoodButton food={food} />
+          {foods.map((food, idx) => (
+            <FoodButton food={food} key={idx} />
           ))}
         </div>
       </div>
@@ -198,10 +200,10 @@ export const GameScreen = () => {
 
         <div
           id="food-selection"
-          className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 xl:grid-cols-12 gap-4 p-4 bg-slate-700 border-t-8 border-slate-900"
+          className="flex justify-center items-center gap-4 p-4 bg-slate-700 border-t-8 border-slate-900"
         >
-          {foods.map((food) => (
-            <FoodButton food={food} />
+          {foods.map((food, idx) => (
+            <FoodButton food={food} key={idx} />
           ))}
         </div>
 
@@ -212,7 +214,7 @@ export const GameScreen = () => {
           className="flex-grow w-full p-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 2xl:grid-cols-7 gap-4 overflow-y-auto"
         >
           {state.orders.map((order) => (
-            <OrderCard order={order} />
+            <OrderCard order={order} key={order.id} />
           ))}
         </div>
       </div>
