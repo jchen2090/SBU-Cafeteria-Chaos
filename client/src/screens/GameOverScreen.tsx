@@ -42,9 +42,15 @@ export const GameOverScreen = () => {
 
   const submitNewRecord = () => {
     const historicalRecord = {
-      highScores: [...state.highScores, { initials: initials.join(""), score: state.currentScore }],
+      highScores: [...state.highScores, { initials: initials.join(""), score: state.currentScore }].sort(
+        (a, b) => b.score - a.score
+      ),
       gamesPlayed: state.gamesPlayed,
     };
+    dispatch({
+      type: "SET_HISTORICAL_DATA",
+      payload: { scores: historicalRecord.highScores, gamesPlayed: historicalRecord.gamesPlayed },
+    });
     saveToFile(historicalRecord);
     setRenderButtons((curr) => !curr);
   };

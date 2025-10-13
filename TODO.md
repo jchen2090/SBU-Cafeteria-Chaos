@@ -1,6 +1,7 @@
 # TODO
 
 - [x] Demo
+- [x] Add logging for future debugging
 - [x] Timer bar change
   - [x] Fix animation for this
 - [x] Order timer bar change

@@ -16,7 +16,7 @@ const GAME_CONFIG: GameConfigType = {
 
 export const initialState: GameStateType = {
   orders: [],
-  timeRemaining: 60,
+  timeRemaining: GAME_CONFIG.GAME_DURATION,
   gameHasStarted: false,
   trayItems: [],
   selectedOrder: null,

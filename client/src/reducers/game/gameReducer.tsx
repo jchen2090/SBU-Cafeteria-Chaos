@@ -4,22 +4,34 @@ import type { GlobalActions } from "./actions";
 
 export function gameReducer(state: GameStateType, action: GlobalActions): GameStateType {
   switch (action.type) {
-    case "ADD_ORDER":
+    case "ADD_ORDER": {
+      console.log(`adding order to order state: ${action.payload}`);
       return { ...state, orders: [...state.orders, action.payload] };
-    case "ADD_TO_TRAY":
+    }
+    case "ADD_TO_TRAY": {
+      console.log(`adding food to tray: ${action.payload}`);
       return { ...state, trayItems: [...state.trayItems, action.payload] };
-    case "CLEAR_TRAY":
+    }
+    case "CLEAR_TRAY": {
+      console.log("clearing tray");
       return { ...state, trayItems: [] };
-    case "START_GAME":
+    }
+    case "START_GAME": {
+      console.log("starting game");
       return {
         ...initialState,
+        config: { ...state.config },
         gameHasStarted: true,
         gamesPlayed: state.gamesPlayed + 1,
         highScores: state.highScores,
       };
-    case "STOP_GAME":
+    }
+    case "STOP_GAME": {
+      console.log("stopping game");
       return { ...state, gamesPlayed: state.gamesPlayed, highScores: state.highScores, gameIsOver: true };
+    }
     case "MAIN_MENU":
+      console.log("returning to main menu");
       return { ...initialState, gamesPlayed: state.gamesPlayed, highScores: state.highScores };
     case "DECREASE_TIME":
       return { ...state, timeRemaining: Math.max(0, state.timeRemaining - 1) };
@@ -28,11 +40,14 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
       const trayItems = state.trayItems;
 
       if (!selectedOrder) {
+        console.log("no order selected, cannot submit");
         return state;
       }
 
+      // FIXME: Is this even necessary?
       if (selectedOrder?.items.length !== trayItems.length) {
         // Clear tray items, display wrong message
+        console.log("order items and tray items are different amounts, do not submit");
         return { ...state, trayItems: [] };
       }
 
@@ -41,6 +56,7 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
 
       if (fulfillsOrder) {
         // Clears tray, adds points, removes order
+        console.log("successfully fulfilled order");
         return {
           ...state,
           trayItems: [],
@@ -56,10 +72,14 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
         return { ...state, trayItems: [] };
       }
     }
-    case "REMOVE_FROM_TRAY":
+    case "REMOVE_FROM_TRAY": {
+      console.log(`removing food from tray: ${state.trayItems[action.payload.food_idx]}`);
       return { ...state, trayItems: state.trayItems.filter((_, idx) => idx !== action.payload.food_idx) };
-    case "SELECT_ORDER":
+    }
+    case "SELECT_ORDER": {
+      console.log(`selected order: ${action.payload}`);
       return { ...state, selectedOrder: action.payload };
+    }
     case "DECREASE_ORDER_TIME": {
       const expiredOrders = state.orders.filter((order) => order.timeRemaining - 1 <= 0);
 
@@ -82,18 +102,22 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
         ],
       };
     }
-    case "SET_HISTORICAL_DATA":
+    case "SET_HISTORICAL_DATA": {
+      console.log(`set state to contain historical data: ${action.payload}`);
       return {
         ...state,
         highScores: action.payload.scores,
         gamesPlayed: action.payload.gamesPlayed,
       };
-    case "TOGGLE_CHALLENGE_MODE":
+    }
+    case "TOGGLE_CHALLENGE_MODE": {
+      console.log("challenge mode is turned on");
       return { ...state, isChallenge: true, gameHasStarted: true };
-    case "SET_CHALLENGE_ORDER":
+    }
+    case "SET_CHALLENGE_ORDER": {
+      console.log(`created challenge order: ${action.payload}`);
       return { ...state, challengeOrder: action.payload };
-    case "REDUCE_SCORE":
-      return { ...state, currentScore: (state.currentScore -= action.payload) };
+    }
     case "REMOVE_FROM_CLEARED_ORDERS": {
       const orderToRemove = action.payload;
       const orderIsCompleted = orderToRemove.isCompleted;
@@ -101,15 +125,21 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
       const updatedOrders = state.clearedOrders.filter((order) => order.order.id !== orderToRemove.order.id);
 
       if (orderIsCompleted) {
+        console.log("updated fulfilled orders amt");
         return { ...state, clearedOrders: updatedOrders, ordersFulfilled: state.ordersFulfilled + 1 };
       } else {
+        console.log("updated lost orders amt");
         return { ...state, clearedOrders: updatedOrders, ordersLost: state.ordersLost + 1 };
       }
     }
-    case "CHANGE_TRAY_POSITION":
+    case "CHANGE_TRAY_POSITION": {
+      console.log(`successfully changed tray position to ${action.payload}`);
       return { ...state, config: { ...state.config, FOOD_TRAY_POSITION: action.payload } };
-    case "TOGGLE_DEMO_MODE":
+    }
+    case "TOGGLE_DEMO_MODE": {
+      console.log("demo mode is turned on");
       return { ...state, isDemoMode: action.payload };
+    }
     default:
       throw new Error("Missing case");
   }

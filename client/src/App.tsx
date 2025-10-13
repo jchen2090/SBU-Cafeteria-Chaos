@@ -28,7 +28,6 @@ function App() {
       interval = setInterval(() => {
         if (!state.isDemoMode) {
           dispatch({ type: "TOGGLE_DEMO_MODE", payload: true });
-          console.log("toggle demo mode");
         }
       }, 4000);
     });

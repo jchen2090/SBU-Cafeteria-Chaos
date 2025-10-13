@@ -17,7 +17,6 @@ export type GlobalActions =
   | { type: "ADD_NEW_RECORD"; payload: { iniitals: string; score: number } }
   | { type: "TOGGLE_CHALLENGE_MODE" }
   | { type: "SET_CHALLENGE_ORDER"; payload: OrderType | null }
-  | { type: "REDUCE_SCORE"; payload: number }
   | { type: "REMOVE_FROM_CLEARED_ORDERS"; payload: clearedOrderType }
   | { type: "CHANGE_TRAY_POSITION"; payload: "TOP" | "BOTTOM" }
   | { type: "TOGGLE_DEMO_MODE"; payload: boolean };
