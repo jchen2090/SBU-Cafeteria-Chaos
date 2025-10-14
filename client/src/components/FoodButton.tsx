@@ -11,7 +11,7 @@ export const FoodButton = ({ food }: foodButtonProps) => {
 
   return (
     <button
-      className="food-item bg-slate-200 p-2 rounded-xl shadow-md flex items-center justify-center hover:bg-yellow-200 cursor-pointer flex-1"
+      className="food-item bg-slate-200 py-6 px-6 rounded-xl shadow-md flex items-center justify-center hover:bg-yellow-200 cursor-pointer flex-1"
       onClick={() => dispatch({ type: "ADD_TO_TRAY", payload: food })}
     >
       <span className="food-emoji">{emoji}</span>
