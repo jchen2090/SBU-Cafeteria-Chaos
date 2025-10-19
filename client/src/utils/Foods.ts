@@ -83,8 +83,8 @@ const getRandomDailyName = () => {
   return DAILY_CHALLENGE_NAMES[randomidx];
 };
 
-export const generateRandomOrder = (orderShelfLife: number) => {
-  const id = `order-${Date.now()}`;
+export const generateRandomOrder = (orderShelfLife: number, orderId?: string) => {
+  const id = orderId ? orderId : `order-${Date.now()}`;
   const items = generateRandomFoodOrder(false);
   const timeRemaining = orderShelfLife;
   const shelfLife = orderShelfLife;
