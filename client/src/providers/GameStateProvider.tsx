@@ -4,18 +4,23 @@ import type { GameConfigType, GameStateType } from "./types";
 import type { GlobalActions } from "../reducers/game/actions";
 import { gameReducer } from "../reducers/game/gameReducer";
 import { getHistoricalData } from "../utils/Scores";
+import { generateRandomOrder } from "../utils/Foods";
 
 const GAME_CONFIG: GameConfigType = {
   GAME_DURATION: 60,
   ORDER_SHELF_LIFE: 20,
-  DIFFICULTY: 1,
+  DIFFICULTY: 2,
   MAX_ORDERS: 7,
   FOOD_TRAY_POSITION: "BOTTOM",
   MAX_RECORDS: 10,
 };
 
 export const initialState: GameStateType = {
-  orders: [],
+  orders: [
+    generateRandomOrder(GAME_CONFIG.ORDER_SHELF_LIFE, "order-1"),
+    generateRandomOrder(GAME_CONFIG.ORDER_SHELF_LIFE, "order-2"),
+    generateRandomOrder(GAME_CONFIG.ORDER_SHELF_LIFE, "order-3"),
+  ],
   timeRemaining: GAME_CONFIG.GAME_DURATION,
   gameHasStarted: false,
   trayItems: [],
