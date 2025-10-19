@@ -75,12 +75,12 @@ export const StartScreen = () => {
               ✨ Daily Special
             </button>
           </div>
-          <div className="flex justify-end">
+          <div className="flex justify-center mt-4">
             <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700 cursor-pointer"
+              className="bg-gray-500 hover:bg-gray-600 text-white font-medium text-md px-2 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-gray-700 cursor-pointer"
               onClick={() => setSettingsModal(true)}
             >
-              ⚙️
+              ⚙️ Change Prep Area
             </button>
           </div>
         </div>
