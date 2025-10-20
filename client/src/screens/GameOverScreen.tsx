@@ -6,6 +6,7 @@ export const GameOverScreen = () => {
   const { state, dispatch } = useGameContext();
   const isNewRecord =
     (state.currentScore !== 0 && state.highScores.length === 0) ||
+    state.highScores.length <= state.config.MAX_RECORDS ||
     state.currentScore > state.highScores[state.highScores.length - 1]?.score;
   const [initials, setInitials] = useState<string[]>([]);
   const [renderButtons, setRenderButtons] = useState(!isNewRecord);
