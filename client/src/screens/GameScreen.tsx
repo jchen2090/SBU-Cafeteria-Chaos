@@ -25,7 +25,7 @@ export const GameScreen = () => {
           closeButton: false,
           className: "font-bold flex justify-center !bg-green-200/50 !text-green-800 mt-20 !w-3xl !text-3xl",
         });
-        toast(`+${order.order.value}`, {
+        toast(`+${order.penalty}`, {
           closeButton: false,
           position: "top-left",
           className: "!font-bangers !text-3xl font-bold justify-end !bg-transparent !text-green-500 !shadow-none !w-64",
@@ -38,7 +38,7 @@ export const GameScreen = () => {
           closeButton: false,
           className: "font-bold flex justify-center !bg-red-200/50 !text-red-800 mt-20 !w-3xl !text-3xl",
         });
-        toast(`-${order.order.value}`, {
+        toast(`${order.penalty}`, {
           closeButton: false,
           position: "top-left",
           className: "!font-bangers !text-3xl font-bold justify-end !bg-transparent !text-red-500 !shadow-none !w-64",
