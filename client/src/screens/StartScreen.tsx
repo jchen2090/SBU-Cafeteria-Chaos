@@ -1,14 +1,28 @@
-import { useState } from "react";
+import { type Dispatch, type SetStateAction } from "react";
 import { HighScoreModal } from "../components/HighScoreModal";
 import { useGameContext } from "../providers/GameStateProvider";
 import { DailySpecialModal } from "../components/DailySpecialModal";
 import { SettingsModal } from "../components/SettingsModal";
 
-export const StartScreen = () => {
+// TODO: This needs to change
+interface StartScreenProps {
+  highScoreModal: boolean;
+  setHighScoreModal: Dispatch<SetStateAction<boolean>>;
+  dailySpecialModal: boolean;
+  setDailySpecialModal: Dispatch<SetStateAction<boolean>>;
+  settingsModal: boolean;
+  setSettingsModal: Dispatch<SetStateAction<boolean>>;
+}
+
+export const StartScreen = ({
+  highScoreModal,
+  setHighScoreModal,
+  dailySpecialModal,
+  setDailySpecialModal,
+  settingsModal,
+  setSettingsModal,
+}: StartScreenProps) => {
   const { state, dispatch } = useGameContext();
-  const [highScoreModal, setHighScoreModal] = useState(false);
-  const [dailySpecialModal, setDailySpecialModal] = useState(false);
-  const [settingsModal, setSettingsModal] = useState(false);
 
   const startGame = () => {
     dispatch({ type: "START_GAME" });
@@ -77,7 +91,7 @@ export const StartScreen = () => {
           </div>
           <div className="flex justify-center mt-4">
             <button
-              className="bg-gray-500 hover:bg-gray-600 text-white font-medium text-md px-2 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-gray-700 cursor-pointer"
+              className="bg-gray-500 hover:bg-gray-600 text-white font-medium text-2xl px-8 py-0.5 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-gray-700 cursor-pointer"
               onClick={() => setSettingsModal(true)}
             >
               ⚙️ Change Prep Area
