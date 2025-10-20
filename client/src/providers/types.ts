@@ -14,6 +14,7 @@ export type clearedOrderType = {
   order: OrderType;
   isCompleted: boolean;
   hasDisplayedToast: boolean;
+  penalty: number;
 };
 
 export type GameConfigType = {

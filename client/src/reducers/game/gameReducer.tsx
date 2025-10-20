@@ -69,7 +69,7 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
           orders: state.orders.filter((order) => order.id !== selectedOrder.id),
           clearedOrders: [
             ...state.clearedOrders,
-            { order: selectedOrder, isCompleted: true, hasDisplayedToast: false },
+            { order: selectedOrder, isCompleted: true, hasDisplayedToast: false, penalty: selectedOrder.value },
           ],
         };
       } else {
@@ -103,7 +103,12 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
         currentScore: Math.max(state.currentScore - penalty, 0),
         clearedOrders: [
           ...state.clearedOrders,
-          ...expiredOrders.map((order) => ({ order: order, isCompleted: false, hasDisplayedToast: false })),
+          ...expiredOrders.map((order) => ({
+            order: order,
+            isCompleted: false,
+            hasDisplayedToast: false,
+            penalty: -penalty,
+          })),
         ],
       };
     }
