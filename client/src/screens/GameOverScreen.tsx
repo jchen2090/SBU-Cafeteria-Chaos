@@ -4,10 +4,18 @@ import { saveToFile } from "../utils/Scores";
 
 export const GameOverScreen = () => {
   const { state, dispatch } = useGameContext();
-  const isNewRecord =
-    (state.currentScore !== 0 && state.highScores.length === 0) ||
-    state.highScores.length <= state.config.MAX_RECORDS ||
-    state.currentScore > state.highScores[state.highScores.length - 1]?.score;
+  let isNewRecord = false;
+
+  if (state.currentScore !== 0) {
+    if (state.highScores.length === 0) {
+      isNewRecord = true;
+    } else if (state.currentScore > state.highScores[state.highScores.length - 1]?.score) {
+      isNewRecord = true;
+    } else if (state.highScores.length <= state.config.MAX_RECORDS) {
+      isNewRecord = true;
+    }
+  }
+
   const [initials, setInitials] = useState<string[]>([]);
   const [renderButtons, setRenderButtons] = useState(!isNewRecord);
   const [timeBeforeMenu, setTimeBeforeMenu] = useState(30);
