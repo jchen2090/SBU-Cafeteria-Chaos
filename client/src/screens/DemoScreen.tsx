@@ -41,12 +41,12 @@ export const DemoScreen = () => {
         const message = getRandomPositiveMessage();
         toast(`"${message}"`, {
           closeButton: false,
-          className: "font-bold flex justify-center !bg-green-200/50 !text-green-800 mt-20 !w-3xl",
+          className: "font-bold flex justify-center !bg-green-200/50 !text-green-800 mt-20 !w-3xl !text-3xl",
         });
         toast(`+${testOrder[0].value}`, {
           closeButton: false,
           position: "top-left",
-          className: "!font-bangers !text-xl font-bold justify-end !bg-transparent !text-green-500 !shadow-none !w-64",
+          className: "!font-bangers !text-3xl font-bold justify-end !bg-transparent !text-green-500 !shadow-none !w-64",
           transition: Flip,
         });
       }

@@ -1,7 +1,7 @@
 import "./index.css";
 import { StartScreen } from "./screens/StartScreen";
 import { GameScreen } from "./screens/GameScreen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { GameOverScreen } from "./screens/GameOverScreen";
 import { useGameContext } from "./providers/GameStateProvider";
 import type { HistoricalDataType } from "./providers/types";
@@ -11,7 +11,9 @@ import { DemoScreen } from "./screens/DemoScreen";
 function App() {
   const { state, dispatch } = useGameContext();
 
-  // const timeBarPercentage = (state.timeRemaining / state.config.GAME_DURATION) * 100;
+  const [highScoreModal, setHighScoreModal] = useState(false);
+  const [dailySpecialModal, setDailySpecialModal] = useState(false);
+  const [settingsModal, setSettingsModal] = useState(false);
 
   // Demo screen logic
   // BUG: Refactor and recheck logic, we're still hitting this even on the endscreen and game screen. I've put a bandaid solution in the loaded component
@@ -21,6 +23,13 @@ function App() {
         dispatch({ type: "TOGGLE_DEMO_MODE", payload: true });
       }
     }, 4000);
+
+    // FIXME: basically we don't want to run demo mode if the modals are up
+    if (highScoreModal || dailySpecialModal || settingsModal) {
+      clearInterval(interval);
+      dispatch({ type: "TOGGLE_DEMO_MODE", payload: false });
+      return;
+    }
 
     document.body.addEventListener("click", () => {
       clearInterval(interval);
@@ -33,7 +42,7 @@ function App() {
     });
 
     return () => clearInterval(interval);
-  }, [dispatch, state.isDemoMode]);
+  }, [dailySpecialModal, dispatch, highScoreModal, settingsModal, state.isDemoMode]);
 
   // Time decrease logic
   useEffect(() => {
@@ -71,14 +80,31 @@ function App() {
 
   let loadedComponent;
 
-  if (state.isDemoMode && !state.gameHasStarted && !state.gameIsOver) {
+  if (
+    state.isDemoMode &&
+    !state.gameHasStarted &&
+    !state.gameIsOver &&
+    !settingsModal &&
+    !dailySpecialModal &&
+    !highScoreModal
+  ) {
     loadedComponent = <DemoScreen />;
   } else if (state.gameIsOver) {
     loadedComponent = <GameOverScreen />;
   } else if (state.gameHasStarted) {
     loadedComponent = <GameScreen />;
   } else {
-    loadedComponent = <StartScreen />;
+    // FIXME: Surely there has to be a better way of implementing this...
+    loadedComponent = (
+      <StartScreen
+        highScoreModal={highScoreModal}
+        setHighScoreModal={setHighScoreModal}
+        dailySpecialModal={dailySpecialModal}
+        setDailySpecialModal={setDailySpecialModal}
+        settingsModal={settingsModal}
+        setSettingsModal={setSettingsModal}
+      />
+    );
   }
 
   return (
