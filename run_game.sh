@@ -21,13 +21,18 @@ on_interrupt() {
     exit 0
 }
 
+export NVM_DIR="$HOME/.nvm"
+source "$NVM_DIR/nvm.sh"
 
-cd client || exit
+
+cd ~/Desktop/SBU-Cafeteria-Chaos/client || exit
 npm i 
-npm run dev & 
-cd ../server  || exit
+nohup npm run dev > ~/Desktop/SBU-Cafeteria-Chaos/logs/client.log 2>&1 & 
+cd ~/Desktop/SBU-Cafeteria-Chaos/server  || exit
 npm i 
-npm run dev & 
-firefox --kiosk http://localhost:5173 &
+nohup npm run dev > ~/Desktop/SBU-Cafeteria-Chaos/logs/server.log 2>&1 & 
+
+export DISPLAY=:0
+nohup chromium --kiosk http://localhost:5173 > ~/Desktop/SBU-Cafeteria-Chaos/logs/chrome.log 2>&1 &
 
 wait
