@@ -25,7 +25,7 @@ export const GameOverScreen = () => {
       setTimeBeforeMenu((curr) => curr - 1);
 
       if (timeBeforeMenu === 0) {
-        dispatch({ type: "MAIN_MENU" });
+        dispatch({ type: "CHANGE_SCREEN", payload: "START" });
       }
     }, 1000);
 
@@ -47,7 +47,7 @@ export const GameOverScreen = () => {
   };
 
   const mainMenu = () => {
-    dispatch({ type: "MAIN_MENU" });
+    dispatch({ type: "CHANGE_SCREEN", payload: "START" });
   };
 
   const submitNewRecord = () => {

@@ -29,7 +29,6 @@ export type GameConfigType = {
 export type GameStateType = {
   orders: Array<OrderType>;
   timeRemaining: number;
-  gameHasStarted: boolean;
   trayItems: Array<availableFoods>;
   selectedOrder: OrderType | null;
   currentScore: number;
@@ -39,10 +38,9 @@ export type GameStateType = {
   challengeOrder: OrderType | null;
   clearedOrders: Array<clearedOrderType>;
   config: GameConfigType;
-  gameIsOver: boolean;
   ordersFulfilled: number;
   ordersLost: number;
-  isDemoMode: boolean;
+  screen: "DEMO" | "START" | "END" | "GAME";
 };
 
 export type SavedGameType = {

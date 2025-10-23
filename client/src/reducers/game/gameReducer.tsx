@@ -26,14 +26,14 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
           DIFFICULTY: initialState.config.DIFFICULTY,
           ORDER_SHELF_LIFE: initialState.config.ORDER_SHELF_LIFE,
         },
-        gameHasStarted: true,
+        screen: "GAME",
         gamesPlayed: state.gamesPlayed + 1,
         highScores: state.highScores,
       };
     }
     case "STOP_GAME": {
       console.log("stopping game");
-      return { ...state, gamesPlayed: state.gamesPlayed, highScores: state.highScores, gameIsOver: true };
+      return { ...state, gamesPlayed: state.gamesPlayed, highScores: state.highScores, screen: "END" };
     }
     case "MAIN_MENU":
       console.log("returning to main menu");
@@ -122,7 +122,7 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
     }
     case "TOGGLE_CHALLENGE_MODE": {
       console.log("challenge mode is turned on");
-      return { ...state, isChallenge: true, gameHasStarted: true };
+      return { ...state, isChallenge: true, screen: "GAME" };
     }
     case "SET_CHALLENGE_ORDER": {
       console.log(`created challenge order: ${action.payload}`);
@@ -148,7 +148,7 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
     }
     case "TOGGLE_DEMO_MODE": {
       console.log("demo mode is turned on");
-      return { ...state, isDemoMode: action.payload };
+      return { ...state, screen: "DEMO" };
     }
     case "INCREASE_DIFFICULTY": {
       console.log("Increasing difficulty");
@@ -159,6 +159,14 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
       return {
         ...state,
         config: { ...state.config, DIFFICULTY: updatedDifficulty, ORDER_SHELF_LIFE: updatedOrderShelfLife },
+      };
+    }
+    case "CHANGE_SCREEN": {
+      console.log("changing screen");
+
+      return {
+        ...state,
+        screen: action.payload,
       };
     }
     default:

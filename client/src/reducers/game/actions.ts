@@ -20,4 +20,5 @@ export type GlobalActions =
   | { type: "REMOVE_FROM_CLEARED_ORDERS"; payload: clearedOrderType }
   | { type: "CHANGE_TRAY_POSITION"; payload: "TOP" | "BOTTOM" }
   | { type: "TOGGLE_DEMO_MODE"; payload: boolean }
-  | { type: "INCREASE_DIFFICULTY" };
+  | { type: "INCREASE_DIFFICULTY" }
+  | { type: "CHANGE_SCREEN"; payload: "GAME" | "START" | "END" | "DEMO" };
