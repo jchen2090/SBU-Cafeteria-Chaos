@@ -14,39 +14,35 @@ function App() {
   const [highScoreModal, setHighScoreModal] = useState(false);
   const [dailySpecialModal, setDailySpecialModal] = useState(false);
   const [settingsModal, setSettingsModal] = useState(false);
+  const { screen } = state;
 
   // Demo screen logic
-  // BUG: Refactor and recheck logic, we're still hitting this even on the endscreen and game screen. I've put a bandaid solution in the loaded component
   useEffect(() => {
+    // Only run if we're on the START screen
+    if (screen !== "START") return;
+
     let interval = setInterval(() => {
-      if (!state.isDemoMode) {
-        dispatch({ type: "TOGGLE_DEMO_MODE", payload: true });
-      }
+      dispatch({ type: "CHANGE_SCREEN", payload: "DEMO" });
     }, 4000);
 
-    // FIXME: basically we don't want to run demo mode if the modals are up
-    if (highScoreModal || dailySpecialModal || settingsModal) {
+    const handleClick = () => {
       clearInterval(interval);
-      dispatch({ type: "TOGGLE_DEMO_MODE", payload: false });
-      return;
-    }
-
-    document.body.addEventListener("click", () => {
-      clearInterval(interval);
-
       interval = setInterval(() => {
-        if (!state.isDemoMode) {
-          dispatch({ type: "TOGGLE_DEMO_MODE", payload: true });
-        }
+        dispatch({ type: "CHANGE_SCREEN", payload: "DEMO" });
       }, 4000);
-    });
+    };
 
-    return () => clearInterval(interval);
-  }, [dailySpecialModal, dispatch, highScoreModal, settingsModal, state.isDemoMode]);
+    document.body.addEventListener("click", handleClick);
+
+    return () => {
+      clearInterval(interval);
+      document.body.removeEventListener("click", handleClick);
+    };
+  }, [dispatch, screen]);
 
   // Time decrease logic
   useEffect(() => {
-    if (state.gameHasStarted) {
+    if (screen === "GAME") {
       const interval = setInterval(() => {
         dispatch({ type: "DECREASE_TIME" });
 
@@ -58,7 +54,7 @@ function App() {
 
           clearInterval(interval);
           saveToFile(dataToSave);
-          dispatch({ type: "STOP_GAME" });
+          dispatch({ type: "CHANGE_SCREEN", payload: "END" });
         }
       }, 1000);
 
@@ -66,32 +62,25 @@ function App() {
     } else {
       return;
     }
-  }, [dispatch, state.timeRemaining, state.gameHasStarted, state.highScores, state.gamesPlayed]);
+  }, [dispatch, screen, state.gamesPlayed, state.highScores, state.timeRemaining]);
 
   useEffect(() => {
-    if (state.gameHasStarted) {
+    if (screen === "GAME") {
       const interval = setInterval(() => {
         dispatch({ type: "INCREASE_DIFFICULTY" });
       }, Math.floor(state.config.GAME_DURATION / 4) * 1000);
 
       return () => clearInterval(interval);
     }
-  }, [dispatch, state.config.DIFFICULTY, state.config.GAME_DURATION, state.gameHasStarted]);
+  }, [dispatch, screen, state.config.GAME_DURATION]);
 
   let loadedComponent;
 
-  if (
-    state.isDemoMode &&
-    !state.gameHasStarted &&
-    !state.gameIsOver &&
-    !settingsModal &&
-    !dailySpecialModal &&
-    !highScoreModal
-  ) {
+  if (state.screen === "DEMO") {
     loadedComponent = <DemoScreen />;
-  } else if (state.gameIsOver) {
+  } else if (state.screen === "END") {
     loadedComponent = <GameOverScreen />;
-  } else if (state.gameHasStarted) {
+  } else if (state.screen === "GAME") {
     loadedComponent = <GameScreen />;
   } else {
     // FIXME: Surely there has to be a better way of implementing this...

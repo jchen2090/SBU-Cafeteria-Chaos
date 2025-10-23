@@ -27,7 +27,7 @@ export const DemoScreen = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (testOrder.length === 0) {
-        dispatch({ type: "MAIN_MENU" });
+        dispatch({ type: "CHANGE_SCREEN", payload: "START" });
       }
 
       if (trayItems.length === 0) {

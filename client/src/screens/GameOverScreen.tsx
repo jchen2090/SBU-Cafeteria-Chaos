@@ -4,10 +4,12 @@ import { saveToFile } from "../utils/Scores";
 
 export const GameOverScreen = () => {
   const { state, dispatch } = useGameContext();
-  const isNewRecord =
-    (state.currentScore !== 0 && state.highScores.length === 0) ||
-    state.highScores.length <= state.config.MAX_RECORDS ||
-    state.currentScore > state.highScores[state.highScores.length - 1]?.score;
+
+  const { currentScore } = state;
+  const hasSpace = state.highScores.length < state.config.MAX_RECORDS;
+  const isGreaterThanSmallestScore = currentScore > state.highScores[state.highScores.length - 1]?.score;
+
+  const isNewRecord = (currentScore !== 0 && hasSpace) || isGreaterThanSmallestScore;
   const [initials, setInitials] = useState<string[]>([]);
   const [renderButtons, setRenderButtons] = useState(!isNewRecord);
   const [timeBeforeMenu, setTimeBeforeMenu] = useState(30);
@@ -17,7 +19,7 @@ export const GameOverScreen = () => {
       setTimeBeforeMenu((curr) => curr - 1);
 
       if (timeBeforeMenu === 0) {
-        dispatch({ type: "MAIN_MENU" });
+        dispatch({ type: "CHANGE_SCREEN", payload: "START" });
       }
     }, 1000);
 
@@ -39,7 +41,7 @@ export const GameOverScreen = () => {
   };
 
   const mainMenu = () => {
-    dispatch({ type: "MAIN_MENU" });
+    dispatch({ type: "CHANGE_SCREEN", payload: "START" });
   };
 
   const submitNewRecord = () => {

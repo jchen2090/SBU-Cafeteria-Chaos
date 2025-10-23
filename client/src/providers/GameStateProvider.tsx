@@ -22,7 +22,6 @@ export const initialState: GameStateType = {
     generateRandomOrder(GAME_CONFIG.ORDER_SHELF_LIFE, "order-3"),
   ],
   timeRemaining: GAME_CONFIG.GAME_DURATION,
-  gameHasStarted: false,
   trayItems: [],
   selectedOrder: null,
   currentScore: 0,
@@ -31,11 +30,10 @@ export const initialState: GameStateType = {
   isChallenge: false,
   challengeOrder: null,
   clearedOrders: [],
-  gameIsOver: false,
   config: GAME_CONFIG,
   ordersFulfilled: 0,
   ordersLost: 0,
-  isDemoMode: false,
+  screen: "START",
 };
 
 interface contextType {
