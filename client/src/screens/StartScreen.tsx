@@ -3,6 +3,7 @@ import { HighScoreModal } from "../components/HighScoreModal";
 import { useGameContext } from "../providers/GameStateProvider";
 import { DailySpecialModal } from "../components/DailySpecialModal";
 import { SettingsModal } from "../components/SettingsModal";
+import { FeedbackModal } from "../components/FeedbackModal";
 
 // TODO: This needs to change
 interface StartScreenProps {
@@ -12,6 +13,8 @@ interface StartScreenProps {
   setDailySpecialModal: Dispatch<SetStateAction<boolean>>;
   settingsModal: boolean;
   setSettingsModal: Dispatch<SetStateAction<boolean>>;
+  feedbackModal: boolean;
+  setFeedbackModal: Dispatch<SetStateAction<boolean>>;
 }
 
 export const StartScreen = ({
@@ -21,11 +24,33 @@ export const StartScreen = ({
   setDailySpecialModal,
   settingsModal,
   setSettingsModal,
+  feedbackModal,
+  setFeedbackModal,
 }: StartScreenProps) => {
   const { state, dispatch } = useGameContext();
 
   const startGame = () => {
     dispatch({ type: "START_GAME" });
+  };
+
+  const openHighScoresModal = () => {
+    setHighScoreModal(true);
+    dispatch({ type: "CHANGE_SCREEN", payload: "HIGHSCORES_MODAL" });
+  };
+
+  const openDailySpecialModal = () => {
+    setDailySpecialModal(true);
+    dispatch({ type: "CHANGE_SCREEN", payload: "DAILY_SPECIAL_MODAL" });
+  };
+
+  const openSettingsModal = () => {
+    setSettingsModal(true);
+    dispatch({ type: "CHANGE_SCREEN", payload: "SETTINGS_MODAL" });
+  };
+
+  const openFeedbackModal = () => {
+    setFeedbackModal(true);
+    dispatch({ type: "CHANGE_SCREEN", payload: "FEEDBACK" });
   };
 
   return (
@@ -77,14 +102,14 @@ export const StartScreen = ({
             <button
               id="high-scores-btn"
               className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700 cursor-pointer"
-              onClick={() => setHighScoreModal(true)}
+              onClick={openHighScoresModal}
             >
               High Scores
             </button>
             <button
               id="special-challenge-btn"
               className="bg-yellow-500 hover:bg-yellow-600 text-slate-800 font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-yellow-300 cursor-pointer"
-              onClick={() => setDailySpecialModal(true)}
+              onClick={openDailySpecialModal}
             >
               ✨ Daily Special
             </button>
@@ -92,9 +117,17 @@ export const StartScreen = ({
           <div className="flex justify-center mt-4">
             <button
               className="bg-gray-500 hover:bg-gray-600 text-white font-medium text-2xl px-8 py-0.5 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-gray-700 cursor-pointer"
-              onClick={() => setSettingsModal(true)}
+              onClick={openSettingsModal}
             >
               ⚙️ Change Prep Area
+            </button>
+          </div>
+          <div className="flex justify-end mt-4">
+            <button
+              className="bg-blue-500 hover:bg-blue-600 text-white font-medium text-2xl px-8 py-0.5 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-gray-700 cursor-pointer"
+              onClick={openFeedbackModal}
+            >
+              Provide Feedback
             </button>
           </div>
         </div>
@@ -102,6 +135,7 @@ export const StartScreen = ({
       <HighScoreModal open={highScoreModal} scores={state.highScores} onOpenChange={setHighScoreModal} />
       <DailySpecialModal open={dailySpecialModal} onOpenChange={setDailySpecialModal} />
       <SettingsModal open={settingsModal} onOpenChange={setSettingsModal} />
+      <FeedbackModal open={feedbackModal} onOpenChange={setFeedbackModal} />
     </div>
   );
 };

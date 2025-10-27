@@ -21,4 +21,7 @@ export type GlobalActions =
   | { type: "CHANGE_TRAY_POSITION"; payload: "TOP" | "BOTTOM" }
   | { type: "TOGGLE_DEMO_MODE"; payload: boolean }
   | { type: "INCREASE_DIFFICULTY" }
-  | { type: "CHANGE_SCREEN"; payload: "GAME" | "START" | "END" | "DEMO" };
+  | {
+      type: "CHANGE_SCREEN";
+      payload: "DEMO" | "START" | "END" | "GAME" | "HIGHSCORES_MODAL" | "SETTINGS_MODAL" | "DAILY_SPECIAL_MODAL" | "FEEDBACK";
+    };

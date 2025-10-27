@@ -14,6 +14,7 @@ function App() {
   const [highScoreModal, setHighScoreModal] = useState(false);
   const [dailySpecialModal, setDailySpecialModal] = useState(false);
   const [settingsModal, setSettingsModal] = useState(false);
+  const [feedbackModal, setFeedbackModal] = useState(false);
   const { screen } = state;
 
   // Demo screen logic
@@ -92,6 +93,8 @@ function App() {
         setDailySpecialModal={setDailySpecialModal}
         settingsModal={settingsModal}
         setSettingsModal={setSettingsModal}
+        feedbackModal={feedbackModal}
+        setFeedbackModal={setFeedbackModal}
       />
     );
   }

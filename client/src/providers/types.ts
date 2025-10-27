@@ -40,7 +40,7 @@ export type GameStateType = {
   config: GameConfigType;
   ordersFulfilled: number;
   ordersLost: number;
-  screen: "DEMO" | "START" | "END" | "GAME";
+  screen: "DEMO" | "START" | "END" | "GAME" | "HIGHSCORES_MODAL" | "SETTINGS_MODAL" | "DAILY_SPECIAL_MODAL" | "FEEDBACK"; 
 };
 
 export type SavedGameType = {
