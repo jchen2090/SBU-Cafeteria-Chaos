@@ -134,14 +134,14 @@ export const GameOverScreen = () => {
         <div className="flex justify-center gap-4 mt-8">
           <button
             id="play-again-btn"
-            className="bg-green-500 hover:bg-green-600 text-white font-bold text-2xl py-6 px-12 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-green-700 cursor-pointer"
+            className="bg-[#386641] hover:bg-[#386641] text-white font-bold text-2xl py-6 px-12 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-[#2a4c30] cursor-pointer"
             onClick={playAgain}
           >
             Play Again
           </button>
           <button
             id="main-menu-btn"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700 cursor-pointer"
+            className="bg-[#6a994e] hover:bg-[#6a994e] text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-[#386641] cursor-pointer"
             onClick={mainMenu}
           >
             Main Menu

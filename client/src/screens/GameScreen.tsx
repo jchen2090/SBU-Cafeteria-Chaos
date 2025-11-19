@@ -121,8 +121,8 @@ export const GameScreen = () => {
           <div className="text-2xl md:text-4xl font-bold">
             Score: <span id="score">{state.currentScore}</span>
           </div>
-          <div id="game-name-ingame-display" className="text-4xl md:text-6xl font-bangers text-yellow-300">
-            Cafeteria Chaos
+          <div id="game-name-ingame-display" className="text-4xl md:text-6xl font-bangers text-[#bc4749]">
+            ❄️Cafeteria Chaos❄️
           </div>
           <div className="text-2xl md:text-4xl font-bold">
             Time: <span id="time">{state.timeRemaining}</span>
@@ -181,8 +181,8 @@ export const GameScreen = () => {
           <div className="text-2xl md:text-4xl font-bold">
             Score: <span id="score">{state.currentScore}</span>
           </div>
-          <div id="game-name-ingame-display" className="text-4xl md:text-6xl font-bangers text-yellow-300">
-            Cafeteria Chaos
+          <div id="game-name-ingame-display" className="text-4xl md:text-6xl font-bangers text-[#bc4749]">
+            ❄️Cafeteria Chaos❄️
           </div>
           <div className="text-2xl md:text-4xl font-bold">
             Time: <span id="time">{state.timeRemaining}</span>

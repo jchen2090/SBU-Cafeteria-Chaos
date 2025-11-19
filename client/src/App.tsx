@@ -24,13 +24,13 @@ function App() {
 
     let interval = setInterval(() => {
       dispatch({ type: "CHANGE_SCREEN", payload: "DEMO" });
-    }, 4000);
+    }, 60000);
 
     const handleClick = () => {
       clearInterval(interval);
       interval = setInterval(() => {
         dispatch({ type: "CHANGE_SCREEN", payload: "DEMO" });
-      }, 4000);
+      }, 60000);
     };
 
     document.body.addEventListener("click", handleClick);

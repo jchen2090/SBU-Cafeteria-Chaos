@@ -45,14 +45,14 @@ export const DailySpecialModal = ({ open, onOpenChange }: DailySpecialModalProps
           <div className="flex mt-8 space-y-4 justify-center items-center gap-2">
             <Dialog.Close asChild>
               <button
-                className="close-modal-btn bg-green-500 hover:bg-green-600 w-full text-white font-bold text-2xl py-3 px-8 rounded-full m-0"
+                className="close-modal-btn bg-[#6a994e] hover:bg-[#6a994e] w-full text-white font-bold text-2xl py-3 px-8 rounded-full m-0"
                 onClick={addSpecialOrder}
               >
                 Start Challenge!
               </button>
             </Dialog.Close>
             <Dialog.Close asChild>
-              <button className="close-modal-btn bg-red-500 hover:bg-red-600 w-full text-white font-bold text-2xl py-3 px-8 rounded-full">
+              <button className="close-modal-btn bg-[#bc4749] hover:bg-[#bc4749] w-full text-white font-bold text-2xl py-3 px-8 rounded-full">
                 Close
               </button>
             </Dialog.Close>

@@ -26,7 +26,7 @@ export const FeedbackModal = ({ open, onOpenChange }: DailySpecialModalProps) =>
 
           <div className="flex mt-8 space-y-4 justify-center items-center gap-2">
             <Dialog.Close asChild>
-              <button className="close-modal-btn bg-red-500 hover:bg-red-600 w-full text-white font-bold text-2xl py-3 px-8 rounded-full cursor-pointer">
+              <button className="close-modal-btn bg-[#bc4749] hover:bg-[#bc4749] w-full text-white font-bold text-2xl py-3 px-8 rounded-full cursor-pointer">
                 Close
               </button>
             </Dialog.Close>

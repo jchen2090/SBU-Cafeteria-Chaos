@@ -1,49 +1,49 @@
 import type { OrderType } from "../providers/types";
 
 const FOOD_ITEMS = {
-  burger: { imagePath: "images/burger.png", emoji: "🍔" },
-  pizza: { imagePath: "images/pizza.png", emoji: "🍕" },
-  fries: { imagePath: "images/fries.png", emoji: "🍟" },
-  hotdog: { imagePath: "images/hotdog.png", emoji: "🌭" },
-  taco: { imagePath: "images/taco.png", emoji: "🌮" },
-  soda: { imagePath: "images/soda.png", emoji: "🥤" },
-  donut: { imagePath: "images/donut.png", emoji: "🍩" },
-  coffee: { imagePath: "images/coffee.png", emoji: "☕" },
-  sushi: { imagePath: "images/sushi.png", emoji: "🍣" },
+  burger: { imagePath: "images/burger.png", emoji: "🍗" },
+  pizza: { imagePath: "images/pizza.png", emoji: "🥛" },
+  fries: { imagePath: "images/fries.png", emoji: "🍪" },
+  hotdog: { imagePath: "images/hotdog.png", emoji: "🎄" },
+  taco: { imagePath: "images/taco.png", emoji: "❄️" },
+  soda: { imagePath: "images/soda.png", emoji: "🍬" },
+  donut: { imagePath: "images/donut.png", emoji: "☃️" },
+  coffee: { imagePath: "images/coffee.png", emoji: "🎁" },
+  sushi: { imagePath: "images/sushi.png", emoji: "🥧" },
 } as const;
 
 const DAILY_CHALLENGE_NAMES = [
-  "The Final Exam Fuel-Up",
-  "Study Hall Snack Attack",
-  "Professor's Pick",
-  "Dean's List Delight",
-  "The All-Nighter",
-  "Graduation Grub",
+  "The Year End Fuel-Up",
+  "Study Hall Snack Blizzard",
+  "Professor’s Peppermint Pick",
+  "The Festive List Delight",
+  "The Midnight Sleigh Ride",
+  "Holiday Season Grub",
 ];
 
 const POSITIVE_FEEDBACK = [
-  "Just what I needed!",
-  "Wolfylicious!",
-  "Delicious!",
-  "Perfect!",
-  "My favorite!",
-  "So fast!",
-  "Amazing service!",
-  "You're a star!",
-  "Yummy!",
-  "Five stars!",
-  "Excellent!",
+  "Just what I needed for the holidays!",
+  "Jolly and delicious!",
+  "Festively tasty!",
+  "Perfect—like a wrapped gift!",
+  "My seasonal favorite!",
+  "So fast—faster than a winter sleigh!",
+  "Amazing holiday service!",
+  "You're a winter star!",
+  "Yummy and merry!",
+  "Five festive stars!",
+  "Absolutely excellent—ho ho ho!",
 ];
 
 const NEGATIVE_FEEDBACK = [
-  "Is this what I ordered?",
-  "Hmm, not quite right.",
-  "Where's the rest of it?",
-  "I've been waiting forever!",
-  "This is... creative.",
-  "My order must be lost.",
-  "Did you forget something?",
-  "This wasn't worth the wait.",
+  "Is this what I put on my wish list?",
+  "Hmm, not quite holiday-right.",
+  "Where's the rest of the festive treats?",
+  "I've been waiting longer than the seasonal list!",
+  "This is… *festively* creative.",
+  "My order must be lost in the snow.",
+  "Did someone forget something?",
+  "Not worth the holiday wait.",
 ];
 
 export type availableFoods = keyof typeof FOOD_ITEMS;

@@ -103,7 +103,7 @@ export const HighScoreModal = ({ open, onOpenChange }: HighScoreModalProps) => {
 
           <div className="mt-8">
             <Dialog.Close asChild>
-              <button className="close-modal-btn bg-red-500 hover:bg-red-600 w-full text-white font-bold text-2xl py-3 px-8 rounded-full">
+              <button className="close-modal-btn bg-[#bc4749] hover:bg-[#bc4749] w-full text-white font-bold text-2xl py-3 px-8 rounded-full">
                 Close
               </button>
             </Dialog.Close>

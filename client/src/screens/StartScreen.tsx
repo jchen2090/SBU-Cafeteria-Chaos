@@ -58,6 +58,25 @@ export const StartScreen = ({
       id="start-screen"
       className="w-full h-full flex flex-col items-center justify-center text-white text-center p-8 relative"
     >
+      {/* Falling Snowflakes */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
+        {[...Array(30)].map((_, i) => (
+          <div
+            key={i}
+            className="absolute text-white opacity-70 animate-[fall_linear_infinite]"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `-${Math.random() * 20}%`,
+              animationDuration: `${8 + Math.random() * 10}s`,
+              animationDelay: `${Math.random() * 5}s`,
+              fontSize: `${10 + Math.random() * 20}px`,
+            }}
+          >
+            ❄️
+          </div>
+        ))}
+      </div>
+
       <div id="attract-mode-container" className="absolute inset-0 pointer-events-none overflow-hidden z-20"></div>
       <div className="bg-black/60  p-12 rounded-2xl shadow-lg relative ">
         <div
@@ -79,21 +98,22 @@ export const StartScreen = ({
         </div>
         <h1
           id="game-name-display"
-          className="font-bangers text-8xl mt-8 md:text-9xl text-yellow-400 text-shadow[4px_4px_0_0]"
+          className="font-bangers text-8xl mt-8 md:text-9xl text-[#bb4446] text-shadow[4px_4px_0_0]"
         >
-          SBU Eat's Cafeteria Chaos
+          🎄SBU Eat's Cafeteria Chaos🎄
         </h1>
+        <p>(Holiday Edition)</p>
         <p
           id="game-headline-display"
           className="text-2xl md:text-3xl mt-4 mb-8 min-h-[64px] flex items-center justify-center"
         >
-          Tap an order, build it, and submit before it expires!
+          Happy Holidays from SBU Eats!
         </p>
 
         <div id="main-menu-controls">
           <button
             id="start-game-btn"
-            className="bg-green-500 hover:bg-green-600 text-white font-bold text-4xl py-6 px-12 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-green-700 cursor-pointer"
+            className="bg-[#386641] hover:bg-[#386641] text-white font-bold text-4xl py-6 px-12 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-[#2a4c30] cursor-pointer"
             onClick={startGame}
           >
             Start Game
@@ -101,14 +121,14 @@ export const StartScreen = ({
           <div className="flex gap-4 justify-center items-center mt-6">
             <button
               id="high-scores-btn"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700 cursor-pointer"
+              className="bg-[#6a994e] hover:bg-[#6a994e] text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-[#386641] cursor-pointer"
               onClick={openHighScoresModal}
             >
               High Scores
             </button>
             <button
               id="special-challenge-btn"
-              className="bg-yellow-500 hover:bg-yellow-600 text-slate-800 font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-yellow-300 cursor-pointer"
+              className="bg-[#bc4749] hover:bg-[#bc4749] text-slate-200 font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-[#963638] cursor-pointer"
               onClick={openDailySpecialModal}
             >
               ✨ Daily Special
@@ -116,7 +136,7 @@ export const StartScreen = ({
           </div>
           <div className="flex justify-center mt-4">
             <button
-              className="bg-gray-500 hover:bg-gray-600 text-white font-medium text-2xl px-8 py-0.5 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-gray-700 cursor-pointer"
+              className="bg-[#f2e8cf] hover:bg-[#f2e8cf] text-black font-medium text-2xl px-8 py-0.5 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-[#e5d19f] cursor-pointer"
               onClick={openSettingsModal}
             >
               ⚙️ Change Prep Area
@@ -124,7 +144,7 @@ export const StartScreen = ({
           </div>
           <div className="flex justify-end mt-4">
             <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-medium text-2xl px-8 py-0.5 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-gray-700 cursor-pointer"
+              className="bg-[#6a994e] hover:bg-[#6a994e] text-white font-medium text-2xl px-8 py-0.5 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-[#386641] cursor-pointer"
               onClick={openFeedbackModal}
             >
               Provide Feedback
@@ -136,6 +156,18 @@ export const StartScreen = ({
       <DailySpecialModal open={dailySpecialModal} onOpenChange={setDailySpecialModal} />
       <SettingsModal open={settingsModal} onOpenChange={setSettingsModal} />
       <FeedbackModal open={feedbackModal} onOpenChange={setFeedbackModal} />
+
+      {/* Custom CSS for snowflake animation */}
+      <style>{`
+        @keyframes fall {
+          0% {
+            transform: translateY(-100px) rotate(0deg);
+          }
+          100% {
+            transform: translateY(100vh) rotate(360deg);
+          }
+        }
+      `}</style>
     </div>
   );
 };

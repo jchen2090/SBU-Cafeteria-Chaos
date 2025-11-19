@@ -14,7 +14,7 @@ export const FoodTray = () => {
     <div className="w-full bg-slate-200 p-4 border-t-4 border-slate-300 flex items-center gap-4">
       <button
         id="clear-tray-btn"
-        className="bg-red-600 hover:bg-red-700 text-white font-bold text-3xl py-8 px-6 rounded-lg shadow-lg border-4 border-red-800 h-full cursor-pointer"
+        className="bg-[#bc4749] hover:bg-[#bc4749] text-white font-bold text-3xl py-8 px-6 rounded-lg shadow-lg border-4 border-[#963638] h-full cursor-pointer"
         onClick={() => dispatch({ type: "CLEAR_TRAY" })}
       >
         CLEAR
@@ -32,7 +32,7 @@ export const FoodTray = () => {
       </div>
       <button
         id="submit-order-btn"
-        className="bg-green-500 hover:bg-green-600 text-white font-bold text-3xl py-8 px-6 rounded-lg shadow-lg border-4 border-green-700 h-full cursor-pointer"
+        className="bg-[#6a994e] hover:bg-[#6a994e] text-white font-bold text-3xl py-8 px-6 rounded-lg shadow-lg border-4 border-[#386641] h-full cursor-pointer"
         onClick={() => dispatch({ type: "SUBMIT_TRAY" })}
       >
         SUBMIT
