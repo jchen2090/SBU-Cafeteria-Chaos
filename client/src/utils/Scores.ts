@@ -14,10 +14,11 @@ export const getHistoricalData = async () => {
     const dataToReturn = {
       highScores: data.highScores.slice(0, initialState.config.MAX_RECORDS),
       gamesPlayed: data.gamesPlayed,
+      pastSemesters: data.pastSemesters,
     };
     return dataToReturn;
   } else {
-    return { highScores: [], gamesPlayed: 0 };
+    return { highScores: [], gamesPlayed: 0, pastSemesters: [] };
   }
 };
 

@@ -132,7 +132,7 @@ export const StartScreen = ({
           </div>
         </div>
       </div>
-      <HighScoreModal open={highScoreModal} scores={state.highScores} onOpenChange={setHighScoreModal} />
+      <HighScoreModal open={highScoreModal} onOpenChange={setHighScoreModal} />
       <DailySpecialModal open={dailySpecialModal} onOpenChange={setDailySpecialModal} />
       <SettingsModal open={settingsModal} onOpenChange={setSettingsModal} />
       <FeedbackModal open={feedbackModal} onOpenChange={setFeedbackModal} />

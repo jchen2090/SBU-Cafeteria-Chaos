@@ -13,7 +13,10 @@ export type GlobalActions =
   | { type: "REMOVE_FROM_TRAY"; payload: { food_idx: number } }
   | { type: "SELECT_ORDER"; payload: OrderType }
   | { type: "DECREASE_ORDER_TIME" }
-  | { type: "SET_HISTORICAL_DATA"; payload: { scores: Array<SavedGameType>; gamesPlayed: number } }
+  | {
+      type: "SET_HISTORICAL_DATA";
+      payload: { scores: Array<SavedGameType>; gamesPlayed: number; pastSemesters: Array<SavedGameType> };
+    }
   | { type: "ADD_NEW_RECORD"; payload: { iniitals: string; score: number } }
   | { type: "TOGGLE_CHALLENGE_MODE" }
   | { type: "SET_CHALLENGE_ORDER"; payload: OrderType | null }
@@ -23,5 +26,13 @@ export type GlobalActions =
   | { type: "INCREASE_DIFFICULTY" }
   | {
       type: "CHANGE_SCREEN";
-      payload: "DEMO" | "START" | "END" | "GAME" | "HIGHSCORES_MODAL" | "SETTINGS_MODAL" | "DAILY_SPECIAL_MODAL" | "FEEDBACK";
+      payload:
+        | "DEMO"
+        | "START"
+        | "END"
+        | "GAME"
+        | "HIGHSCORES_MODAL"
+        | "SETTINGS_MODAL"
+        | "DAILY_SPECIAL_MODAL"
+        | "FEEDBACK";
     };
