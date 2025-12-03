@@ -2,6 +2,7 @@
 
 trap on_interrupt SIGINT SIGTERM
 
+
 on_interrupt() {
     echo "Ctrl + C detecting, shutting down server and client" 
 
@@ -21,13 +22,18 @@ on_interrupt() {
     exit 0
 }
 
+export NVM_DIR="$HOME/.nvm"
+source "$NVM_DIR/nvm.sh"
 
-cd client || exit
+
+cd ~/SBU-Cafeteria-Chaos/client || exit
 npm i 
-npm run dev & 
-cd ../server  || exit
+nohup npm run dev > ~/SBU-Cafeteria-Chaos/logs/client.log 2>&1 & 
+cd ~/SBU-Cafeteria-Chaos/server  || exit
 npm i 
-npm run dev & 
-firefox --kiosk http://localhost:5173 &
+nohup npm run dev > ~/SBU-Cafeteria-Chaos/logs/server.log 2>&1 & 
+
+export DISPLAY=:0
+nohup  chromium --process-per-site --disable-software-rasterizer --disable-gpu-memory-buffer-compositor-resources --kiosk http://localhost:5173 > ~/SBU-Cafeteria-Chaos/logs/chrome.log 2>&1 &
 
 wait
