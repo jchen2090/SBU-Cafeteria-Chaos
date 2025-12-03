@@ -27,6 +27,7 @@ export const initialState: GameStateType = {
   currentScore: 0,
   highScores: [],
   gamesPlayed: 0,
+  pastSemesters: [],
   isChallenge: false,
   challengeOrder: null,
   clearedOrders: [],
@@ -49,7 +50,10 @@ export function GameStateProvider({ children }: { children: ReactNode }) {
     const loadHistoricalData = async () => {
       try {
         const res = await getHistoricalData();
-        dispatch({ type: "SET_HISTORICAL_DATA", payload: { scores: res.highScores, gamesPlayed: res.gamesPlayed } });
+        dispatch({
+          type: "SET_HISTORICAL_DATA",
+          payload: { scores: res.highScores, gamesPlayed: res.gamesPlayed, pastSemesters: res.pastSemesters },
+        });
       } catch (err) {
         console.error("Failed to load initial state:", err);
       }

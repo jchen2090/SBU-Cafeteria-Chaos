@@ -90,7 +90,7 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
 
       const penalty = expiredOrders.reduce(
         (acc, order) => acc + Math.floor(Math.random() * (order.value / 2 - order.value / 4) + order.value / 4),
-        0
+        0,
       );
 
       const updatedOrders = state.orders
@@ -118,6 +118,7 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
         ...state,
         highScores: action.payload.scores,
         gamesPlayed: action.payload.gamesPlayed,
+        pastSemesters: action.payload.pastSemesters,
       };
     }
     case "TOGGLE_CHALLENGE_MODE": {

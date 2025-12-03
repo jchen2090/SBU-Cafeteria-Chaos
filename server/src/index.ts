@@ -37,12 +37,17 @@ app.post("/api/scores", (req, res) => {
       existingData.highScores = highScores;
       existingData.gamesPlayed = gamesPlayed;
 
-      fs.writeFile(scoresJsonPath, JSON.stringify(existingData), "utf-8", (err) => {
-        if (err) {
-          console.error(err);
-        }
-        res.status(200).send("Wrote to file successfully");
-      });
+      fs.writeFile(
+        scoresJsonPath,
+        JSON.stringify(existingData),
+        "utf-8",
+        (err) => {
+          if (err) {
+            console.error(err);
+          }
+          res.status(200).send("Wrote to file successfully");
+        },
+      );
     }
   });
 });

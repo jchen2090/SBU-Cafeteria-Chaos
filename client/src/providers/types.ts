@@ -34,21 +34,32 @@ export type GameStateType = {
   currentScore: number;
   highScores: Array<SavedGameType>;
   gamesPlayed: number;
+  pastSemesters: Array<SavedGameType>;
   isChallenge: boolean;
   challengeOrder: OrderType | null;
   clearedOrders: Array<clearedOrderType>;
   config: GameConfigType;
   ordersFulfilled: number;
   ordersLost: number;
-  screen: "DEMO" | "START" | "END" | "GAME" | "HIGHSCORES_MODAL" | "SETTINGS_MODAL" | "DAILY_SPECIAL_MODAL" | "FEEDBACK"; 
+  screen:
+    | "DEMO"
+    | "START"
+    | "END"
+    | "GAME"
+    | "HIGHSCORES_MODAL"
+    | "SETTINGS_MODAL"
+    | "DAILY_SPECIAL_MODAL"
+    | "FEEDBACK";
 };
 
 export type SavedGameType = {
   initials: string;
   score: number;
+  semester?: string;
 };
 
 export type HistoricalDataType = {
   highScores: Array<SavedGameType>;
   gamesPlayed: number;
+  pastSemesters: Array<SavedGameType>;
 };
