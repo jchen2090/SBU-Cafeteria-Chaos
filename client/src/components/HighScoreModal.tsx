@@ -71,7 +71,7 @@ export const HighScoreModal = ({ open, onOpenChange }: HighScoreModalProps) => {
             <Tabs.Content value="top">
               <ol className="list-decimal list-inside text-3xl space-y-3">
                 {highScores.length === 0 ? (
-                  <li className="text-center text-2xl text-slate-300">No high scores recorded yet.</li>
+                  <li className="list-none text-center text-2xl text-slate-300">No high scores recorded yet.</li>
                 ) : (
                   highScores.map((entry: SavedGameType, index) => (
                     <li key={`${entry.initials}-${entry.score}-${index}`}>
@@ -85,7 +85,7 @@ export const HighScoreModal = ({ open, onOpenChange }: HighScoreModalProps) => {
             <Tabs.Content value="history">
               <ol className="list-none list-inside text-2xl space-y-2">
                 {pastSemesters.length === 0 ? (
-                  <li className="text-center text-xl text-slate-300">No historical scores recorded yet.</li>
+                  <li className="text-center text-2xl text-slate-300">No historical scores recorded yet.</li>
                 ) : (
                   pastSemesters.map((entry, index) => (
                     <div className={`${getPlacementColor(index)} rounded-lg p-4 border`} key={index}>
