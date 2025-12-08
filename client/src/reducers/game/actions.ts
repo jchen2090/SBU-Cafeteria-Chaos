@@ -15,7 +15,12 @@ export type GlobalActions =
   | { type: "DECREASE_ORDER_TIME" }
   | {
       type: "SET_HISTORICAL_DATA";
-      payload: { scores: Array<SavedGameType>; gamesPlayed: number; pastSemesters: Array<SavedGameType> };
+      payload: {
+        scores: Array<SavedGameType>;
+        gamesPlayed: number;
+        pastSemesters: Array<SavedGameType>;
+        currentSemester: string;
+      };
     }
   | { type: "ADD_NEW_RECORD"; payload: { iniitals: string; score: number } }
   | { type: "TOGGLE_CHALLENGE_MODE" }

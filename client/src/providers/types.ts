@@ -39,6 +39,7 @@ export type GameStateType = {
   challengeOrder: OrderType | null;
   clearedOrders: Array<clearedOrderType>;
   config: GameConfigType;
+  currentSemester: string;
   ordersFulfilled: number;
   ordersLost: number;
   screen:
@@ -62,4 +63,5 @@ export type HistoricalDataType = {
   highScores: Array<SavedGameType>;
   gamesPlayed: number;
   pastSemesters: Array<SavedGameType>;
+  currentSemester: string;
 };
