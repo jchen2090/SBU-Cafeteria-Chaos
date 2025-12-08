@@ -52,11 +52,13 @@ export const GameOverScreen = () => {
 
   const submitNewRecord = () => {
     const historicalRecord = {
-      highScores: [...state.highScores, { initials: initials.join(""), score: state.currentScore }].sort(
-        (a, b) => b.score - a.score,
-      ),
+      highScores: [
+        ...state.highScores,
+        { initials: initials.join(""), score: state.currentScore, semester: state.currentSemester },
+      ].sort((a, b) => b.score - a.score),
       gamesPlayed: state.gamesPlayed,
       pastSemesters: state.pastSemesters,
+      currentSemester: state.currentSemester,
     };
     dispatch({
       type: "SET_HISTORICAL_DATA",
@@ -64,6 +66,7 @@ export const GameOverScreen = () => {
         scores: historicalRecord.highScores,
         gamesPlayed: historicalRecord.gamesPlayed,
         pastSemesters: historicalRecord.pastSemesters,
+        currentSemester: historicalRecord.currentSemester,
       },
     });
     saveToFile(historicalRecord);

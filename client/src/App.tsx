@@ -51,6 +51,8 @@ function App() {
           const dataToSave: HistoricalDataType = {
             highScores: state.highScores,
             gamesPlayed: state.gamesPlayed,
+            currentSemester: state.currentSemester,
+            pastSemesters: state.pastSemesters,
           };
 
           clearInterval(interval);
@@ -67,9 +69,12 @@ function App() {
 
   useEffect(() => {
     if (screen === "GAME") {
-      const interval = setInterval(() => {
-        dispatch({ type: "INCREASE_DIFFICULTY" });
-      }, Math.floor(state.config.GAME_DURATION / 4) * 1000);
+      const interval = setInterval(
+        () => {
+          dispatch({ type: "INCREASE_DIFFICULTY" });
+        },
+        Math.floor(state.config.GAME_DURATION / 4) * 1000,
+      );
 
       return () => clearInterval(interval);
     }

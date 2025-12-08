@@ -29,6 +29,7 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
         screen: "GAME",
         gamesPlayed: state.gamesPlayed + 1,
         highScores: state.highScores,
+        currentSemester: state.currentSemester,
       };
     }
     case "STOP_GAME": {
@@ -119,6 +120,7 @@ export function gameReducer(state: GameStateType, action: GlobalActions): GameSt
         highScores: action.payload.scores,
         gamesPlayed: action.payload.gamesPlayed,
         pastSemesters: action.payload.pastSemesters,
+        currentSemester: action.payload.currentSemester,
       };
     }
     case "TOGGLE_CHALLENGE_MODE": {

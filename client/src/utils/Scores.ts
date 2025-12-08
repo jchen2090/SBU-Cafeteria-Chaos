@@ -15,10 +15,11 @@ export const getHistoricalData = async () => {
       highScores: data.highScores.slice(0, initialState.config.MAX_RECORDS),
       gamesPlayed: data.gamesPlayed,
       pastSemesters: data.pastSemesters,
+      currentSemester: data.currentSemester,
     };
     return dataToReturn;
   } else {
-    return { highScores: [], gamesPlayed: 0, pastSemesters: [] };
+    return { highScores: [], gamesPlayed: 0, pastSemesters: [], currentSemester: "DID NOT READ PROPERLY" };
   }
 };
 
