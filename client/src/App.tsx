@@ -24,13 +24,13 @@ function App() {
 
     let interval = setInterval(() => {
       dispatch({ type: "CHANGE_SCREEN", payload: "DEMO" });
-    }, 4000);
+    }, 30000);
 
     const handleClick = () => {
       clearInterval(interval);
       interval = setInterval(() => {
         dispatch({ type: "CHANGE_SCREEN", payload: "DEMO" });
-      }, 4000);
+      }, 30000);
     };
 
     document.body.addEventListener("click", handleClick);
@@ -69,12 +69,9 @@ function App() {
 
   useEffect(() => {
     if (screen === "GAME") {
-      const interval = setInterval(
-        () => {
-          dispatch({ type: "INCREASE_DIFFICULTY" });
-        },
-        Math.floor(state.config.GAME_DURATION / 4) * 1000,
-      );
+      const interval = setInterval(() => {
+        dispatch({ type: "INCREASE_DIFFICULTY" });
+      }, Math.floor(state.config.GAME_DURATION / 4) * 1000);
 
       return () => clearInterval(interval);
     }
@@ -105,7 +102,7 @@ function App() {
   }
 
   return (
-    <div className="h-screen w-screen bg-gray-900 flex items-center justify-center">
+    <div className="h-screen w-screen bg-[#ffc5e6] flex items-center justify-center">
       <div id="game-container" className="w-full h-full mx-auto shadow-2xl rounded-lg overflow-hidden">
         {loadedComponent}
       </div>
