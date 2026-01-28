@@ -2,6 +2,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import type { Dispatch, SetStateAction } from "react";
 import { generateSpecialOrder, getFoodEmoji } from "../utils/Foods";
 import { useGameContext } from "../providers/GameStateProvider";
+import { Button } from "./ui/button";
 
 interface DailySpecialModalProps {
   open: boolean;
@@ -44,17 +45,17 @@ export const DailySpecialModal = ({ open, onOpenChange }: DailySpecialModalProps
 
           <div className="flex mt-8 space-y-4 justify-center items-center gap-2">
             <Dialog.Close asChild>
-              <button
-                className="close-modal-btn bg-green-500 hover:bg-green-600 w-full text-white font-bold text-2xl py-3 px-8 rounded-full m-0"
+              <Button
+                className="text-white font-bold text-2xl py-6 px-8 rounded-full m-0 flex-1"
                 onClick={addSpecialOrder}
               >
                 Start Challenge!
-              </button>
+              </Button>
             </Dialog.Close>
             <Dialog.Close asChild>
-              <button className="close-modal-btn bg-red-500 hover:bg-red-600 w-full text-white font-bold text-2xl py-3 px-8 rounded-full">
+              <Button variant="destructive" className="text-white font-bold text-2xl py-6 px-8 rounded-full flex-1">
                 Close
-              </button>
+              </Button>
             </Dialog.Close>
           </div>
         </Dialog.Content>

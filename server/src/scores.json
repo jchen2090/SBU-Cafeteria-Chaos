@@ -1,1 +1,6 @@
-{ "highScores": [], "gamesPlayed": 0, "pastSemesters": [] }
+{
+  "highScores": [],
+  "gamesPlayed": 0,
+  "pastSemesters": [],
+  "currentSemester": "Spring 2026"
+}

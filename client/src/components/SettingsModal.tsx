@@ -1,6 +1,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import type { Dispatch, SetStateAction } from "react";
 import { useGameContext } from "../providers/GameStateProvider";
+import { Button } from "./ui/button";
 
 interface SettingsModalProp {
   open: boolean;
@@ -32,28 +33,32 @@ export const SettingsModal = ({ open, onOpenChange }: SettingsModalProp) => {
           </Dialog.Description>
 
           <div className="grid grid-cols-2 my-6 gap-4">
-            <button
+            <Button
+              variant="special"
               className={`${
-                state.config.FOOD_TRAY_POSITION === "TOP" ? "bg-yellow-600" : "bg-inherit"
-              } hover:bg-yellow-500 text-white font-normal text-lg rounded-sm hover:scale-105 shadow-lg border-4 border-yellow-400 cursor-pointer py-1`}
+                state.config.FOOD_TRAY_POSITION === "TOP" ? "bg-special" : "bg-inherit"
+              } hover:bg-yellow-500 text-white font-normal text-lg rounded-sm hover:scale-105 shadow-lg border-4 border-yellow-400 cursor-pointer py-4`}
               onClick={() => changeTrayToTop()}
             >
               Top
-            </button>
-            <button
+            </Button>
+            <Button
               className={`${
-                state.config.FOOD_TRAY_POSITION === "BOTTOM" ? "bg-yellow-600" : "bg-inherit"
-              } hover:bg-yellow-500 text-white font-normal text-lg rounded-sm hover:scale-105 shadow-lg border-4 border-yellow-400 cursor-pointer py-1`}
+                state.config.FOOD_TRAY_POSITION === "BOTTOM" ? "bg-special" : "bg-inherit"
+              } hover:bg-yellow-500 text-white font-normal text-lg rounded-sm hover:scale-105 shadow-lg border-4 border-yellow-400 cursor-pointer py-4`}
               onClick={() => changeTrayToBottom()}
             >
               Bottom
-            </button>
+            </Button>
           </div>
 
           <Dialog.Close asChild>
-            <button className="close-modal-btn bg-red-500 hover:bg-red-600 w-full text-white font-bold text-2xl py-3 px-8 rounded-full cursor-pointer">
+            <Button
+              variant="destructive"
+              className="w-full text-white font-bold text-2xl py-6 px-8 rounded-full cursor-pointer"
+            >
               Close
-            </button>
+            </Button>
           </Dialog.Close>
         </Dialog.Content>
       </Dialog.Portal>

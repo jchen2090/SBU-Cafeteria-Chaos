@@ -3,6 +3,7 @@ import * as Tabs from "@radix-ui/react-tabs";
 import type { SavedGameType } from "../providers/types";
 import type { Dispatch, SetStateAction } from "react";
 import { useGameContext } from "../providers/GameStateProvider";
+import { Button } from "./ui/button";
 
 interface HighScoreModalProps {
   open: boolean;
@@ -103,9 +104,9 @@ export const HighScoreModal = ({ open, onOpenChange }: HighScoreModalProps) => {
 
           <div className="mt-8">
             <Dialog.Close asChild>
-              <button className="close-modal-btn bg-red-500 hover:bg-red-600 w-full text-white font-bold text-2xl py-3 px-8 rounded-full">
+              <Button variant="destructive" className="w-full text-white font-bold text-2xl py-6 px-8 rounded-full">
                 Close
-              </button>
+              </Button>
             </Dialog.Close>
           </div>
         </Dialog.Content>
