@@ -4,6 +4,7 @@ import { useGameContext } from "../providers/GameStateProvider";
 import { DailySpecialModal } from "../components/DailySpecialModal";
 import { SettingsModal } from "../components/SettingsModal";
 import { FeedbackModal } from "../components/FeedbackModal";
+import { Button } from "@/components/ui/button";
 
 // TODO: This needs to change
 interface StartScreenProps {
@@ -91,44 +92,43 @@ export const StartScreen = ({
         </p>
 
         <div id="main-menu-controls">
-          <button
-            id="start-game-btn"
-            className="bg-green-500 hover:bg-green-600 text-white font-bold text-4xl py-6 px-12 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-green-700 cursor-pointer"
+          <Button
+            className="font-bold text-4xl py-8 px-12 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-primary/50 cursor-pointer"
             onClick={startGame}
           >
             Start Game
-          </button>
+          </Button>
           <div className="flex gap-4 justify-center items-center mt-6">
-            <button
-              id="high-scores-btn"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700 cursor-pointer"
+            <Button
+              variant="secondary"
+              className="font-bold text-2xl py-5 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-secondary/50 cursor-pointer"
               onClick={openHighScoresModal}
             >
               High Scores
-            </button>
-            <button
-              id="special-challenge-btn"
-              className="bg-yellow-500 hover:bg-yellow-600 text-slate-800 font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-yellow-300 cursor-pointer"
+            </Button>
+            <Button
+              className="font-bold text-2xl py-5 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-special/50 cursor-pointer"
+              variant="special"
               onClick={openDailySpecialModal}
             >
               ✨ Daily Special
-            </button>
+            </Button>
           </div>
-          <div className="flex justify-center mt-4">
-            <button
-              className="bg-gray-500 hover:bg-gray-600 text-white font-medium text-2xl px-8 py-0.5 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-gray-700 cursor-pointer"
-              onClick={openSettingsModal}
-            >
-              ⚙️ Change Prep Area
-            </button>
-          </div>
-          <div className="flex justify-end mt-4">
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-medium text-2xl px-8 py-0.5 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-gray-700 cursor-pointer"
+          <div className="flex justify-between mt-16 ">
+            <Button
+              variant="secondary"
+              className="text-2xl px-8 py-5 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-secondary/50 cursor-pointer"
               onClick={openFeedbackModal}
             >
               Provide Feedback
-            </button>
+            </Button>
+            <Button
+              variant="system"
+              className="text-2xl px-8 py-5 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-system/50 cursor-pointer"
+              onClick={openSettingsModal}
+            >
+              ⚙️ Change Prep Area
+            </Button>
           </div>
         </div>
       </div>

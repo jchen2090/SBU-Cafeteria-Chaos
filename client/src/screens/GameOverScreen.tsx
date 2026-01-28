@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useGameContext } from "../providers/GameStateProvider";
 import { saveToFile } from "../utils/Scores";
+import { Button } from "@/components/ui/button";
 
 export const GameOverScreen = () => {
   const { state, dispatch } = useGameContext();
@@ -117,38 +118,39 @@ export const GameOverScreen = () => {
         </div>
         <div className="grid grid-cols-10 gap-2 text-2xl font-bold">
           {KEYS.map((key) => (
-            <button className="bg-slate-600 hover:bg-slate-500 p-4 rounded-lg" onClick={() => handleKeyPress(key)}>
+            <Button
+              className="bg-slate-600 hover:bg-slate-500 py-8 px-4 rounded-lg text-xl font-bold"
+              onClick={() => handleKeyPress(key)}
+            >
               {key}
-            </button>
+            </Button>
           ))}
         </div>
-        <button
-          id="submit-initials-btn"
-          className={`mt-4 bg-green-600 hover:bg-green-700 text-white py-2 px-8 rounded-full text-xl ${
+        <Button
+          className={`mt-4 py-6 px-8 rounded-full text-xl ${
             initials.length !== 3 ? "cursor-not-allowed opacity-50" : "cursor-pointer"
           }`}
           disabled={initials.length === 3 ? false : true}
           onClick={submitNewRecord}
         >
           Submit
-        </button>
+        </Button>
       </div>
       {renderButtons && (
         <div className="flex justify-center gap-4 mt-8">
-          <button
-            id="play-again-btn"
-            className="bg-green-500 hover:bg-green-600 text-white font-bold text-2xl py-6 px-12 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-green-700 cursor-pointer"
+          <Button
+            className="font-bold text-2xl py-6 px-12 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-primary/50 cursor-pointer"
             onClick={playAgain}
           >
             Play Again
-          </button>
-          <button
-            id="main-menu-btn"
-            className="bg-blue-500 hover:bg-blue-600 text-white font-bold text-2xl py-3 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-blue-700 cursor-pointer"
+          </Button>
+          <Button
+            variant="secondary"
+            className="font-bold text-2xl py-6 px-8 rounded-full transition-transform transform hover:scale-105 shadow-lg border-4 border-secondary/50 cursor-pointer"
             onClick={mainMenu}
           >
             Main Menu
-          </button>
+          </Button>
         </div>
       )}
       <div id="auto-return-timer" className="absolute bottom-4 right-4 text-slate-400 text-lg">
