@@ -204,13 +204,13 @@ body {
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.723 0.219 149.579);
+  --primary: oklch(0.7308 0.1892 137.5);
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.623 0.214 259.815);
+  --secondary: oklch(0.8222 0.1285 136.24);
   --secondary-foreground: oklch(0.985 0 0);
-  --special: oklch(0.795 0.184 86.047);
+  --special: oklch(0.8238 0.1678 90.3);
   --special-foreground: oklch(0.985 0 0);
-  --system: oklch(0.551 0.027 264.364);
+  --system: oklch(0.7908 0.1361 137.07);
   --system-foreground: oklch(0.985 0 0);
   --muted: oklch(0.967 0.001 286.375);
   --muted-foreground: oklch(0.552 0.016 285.938);

@@ -54,13 +54,36 @@ export const StartScreen = ({
     dispatch({ type: "CHANGE_SCREEN", payload: "FEEDBACK" });
   };
 
+  const emojis = ["🍀", "☘️"];
+
   return (
     <div
       id="start-screen"
       className="w-full h-full flex flex-col items-center justify-center text-white text-center p-8 relative"
     >
+      <div className="absolute inset-0 pointer-events-none overflow-hidden z-10">
+        {[...Array(30)].map((_, i) => {
+          const randomHeart = emojis[Math.floor(Math.random() * emojis.length)];
+          return (
+            <div
+              key={i}
+              className="absolute text-white opacity-70 animate-[fall_linear_infinite]"
+              style={{
+                left: `${Math.random() * 100}%`,
+                top: `-${Math.random() * 20}%`,
+                animationDuration: `${8 + Math.random() * 10}s`,
+                animationDelay: `${Math.random() * 5}s`,
+                fontSize: `${10 + Math.random() * 20}px`,
+              }}
+            >
+              {randomHeart}
+            </div>
+          );
+        })}
+      </div>
+
       <div id="attract-mode-container" className="absolute inset-0 pointer-events-none overflow-hidden z-20"></div>
-      <div className="bg-black/60  p-12 rounded-2xl shadow-lg relative ">
+      <div className="bg-[#7FC460] p-12 rounded-2xl shadow-lg relative ">
         <div
           id="top-left-stats"
           className="absolute top-4 left-4 text-white text-2xl font-bold p-3 rounded-lg text-left"
@@ -136,6 +159,17 @@ export const StartScreen = ({
       <DailySpecialModal open={dailySpecialModal} onOpenChange={setDailySpecialModal} />
       <SettingsModal open={settingsModal} onOpenChange={setSettingsModal} />
       <FeedbackModal open={feedbackModal} onOpenChange={setFeedbackModal} />
+
+      <style>{`
+        @keyframes fall {
+          0% {
+            transform: translateY(-100px) rotate(0deg);
+          }
+          100% {
+            transform: translateY(100vh) rotate(360deg);
+          }
+        }
+      `}</style>
     </div>
   );
 };

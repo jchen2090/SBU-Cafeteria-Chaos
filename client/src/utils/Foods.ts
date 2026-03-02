@@ -1,15 +1,15 @@
 import type { OrderType } from "../providers/types";
 
 const FOOD_ITEMS = {
-  burger: { imagePath: "images/burger.png", emoji: "🍔" },
-  pizza: { imagePath: "images/pizza.png", emoji: "🍕" },
-  fries: { imagePath: "images/fries.png", emoji: "🍟" },
-  hotdog: { imagePath: "images/hotdog.png", emoji: "🌭" },
-  taco: { imagePath: "images/taco.png", emoji: "🌮" },
-  soda: { imagePath: "images/soda.png", emoji: "🥤" },
-  donut: { imagePath: "images/donut.png", emoji: "🍩" },
+  burger: { imagePath: "images/burger.png", emoji: "🫓" },
+  pizza: { imagePath: "images/pizza.png", emoji: "🥧" },
+  fries: { imagePath: "images/fries.png", emoji: "🍲" },
+  hotdog: { imagePath: "images/hotdog.png", emoji: "🥗" },
+  taco: { imagePath: "images/taco.png", emoji: "🥔" },
+  soda: { imagePath: "images/soda.png", emoji: "☘️" },
+  donut: { imagePath: "images/donut.png", emoji: "🍰" },
   coffee: { imagePath: "images/coffee.png", emoji: "☕" },
-  sushi: { imagePath: "images/sushi.png", emoji: "🍣" },
+  sushi: { imagePath: "images/sushi.png", emoji: "🌈" },
 } as const;
 
 const DAILY_CHALLENGE_NAMES = [
