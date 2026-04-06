@@ -204,13 +204,16 @@ body {
   --card-foreground: oklch(0.141 0.005 285.823);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.141 0.005 285.823);
-  --primary: oklch(0.723 0.219 149.579);
+  --primary: oklch(0.52 0.19 257); /* patriotic navy blue */
   --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.623 0.214 259.815);
+
+  --secondary: oklch(0.62 0.24 25); /* memorial red */
   --secondary-foreground: oklch(0.985 0 0);
-  --special: oklch(0.795 0.184 86.047);
+
+  --special: oklch(0.84 0.16 85); /* ceremonial gold */
   --special-foreground: oklch(0.985 0 0);
-  --system: oklch(0.551 0.027 264.364);
+
+  --system: oklch(0.78 0.03 250); /* soft steel / military-inspired neutral */
   --system-foreground: oklch(0.985 0 0);
   --muted: oklch(0.967 0.001 286.375);
   --muted-foreground: oklch(0.552 0.016 285.938);

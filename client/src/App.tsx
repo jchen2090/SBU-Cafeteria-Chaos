@@ -105,7 +105,7 @@ function App() {
   }
 
   return (
-    <div className="h-screen w-screen bg-gray-900 flex items-center justify-center">
+    <div className="h-screen w-screen bg-[#F8F7F2] flex items-center justify-center">
       <div id="game-container" className="w-full h-full mx-auto shadow-2xl rounded-lg overflow-hidden">
         {loadedComponent}
       </div>

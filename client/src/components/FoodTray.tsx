@@ -32,7 +32,7 @@ export const FoodTray = () => {
         </div>
       </div>
       <Button
-        className="text-white font-bold text-3xl py-8 px-6 rounded-lg shadow-lg border-4 border-green-700 h-full cursor-pointer"
+        className="text-white font-bold text-3xl py-8 px-6 rounded-lg shadow-lg border-4 border-primary/80 h-full cursor-pointer"
         onClick={() => dispatch({ type: "SUBMIT_TRAY" })}
       >
         SUBMIT

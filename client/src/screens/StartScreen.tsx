@@ -60,7 +60,7 @@ export const StartScreen = ({
       className="w-full h-full flex flex-col items-center justify-center text-white text-center p-8 relative"
     >
       <div id="attract-mode-container" className="absolute inset-0 pointer-events-none overflow-hidden z-20"></div>
-      <div className="bg-black/60  p-12 rounded-2xl shadow-lg relative ">
+      <div className="bg-[#b4b4b4]  p-12 rounded-2xl shadow-lg relative ">
         <div
           id="top-left-stats"
           className="absolute top-4 left-4 text-white text-2xl font-bold p-3 rounded-lg text-left"
