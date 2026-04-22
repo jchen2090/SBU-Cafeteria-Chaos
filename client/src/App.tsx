@@ -80,6 +80,18 @@ function App() {
     }
   }, [dispatch, screen, state.config.GAME_DURATION]);
 
+  useEffect(() => {
+    if (highScoreModal || settingsModal || dailySpecialModal || feedbackModal) {
+      const interval = setInterval(() => {
+        setHighScoreModal(false);
+        setSettingsModal(false);
+        setDailySpecialModal(false);
+        setFeedbackModal(false);
+      }, 20_000);
+      return () => clearInterval(interval);
+    }
+  }, [dailySpecialModal, feedbackModal, highScoreModal, settingsModal]);
+
   let loadedComponent;
 
   if (state.screen === "DEMO") {
